@@ -17,10 +17,6 @@ public partial class MyStoreManagementContext : DbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
-    public virtual DbSet<Attribute> Attributes { get; set; }
-
-    public virtual DbSet<AttributesPrice> AttributesPrices { get; set; }
-
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
@@ -55,23 +51,6 @@ public partial class MyStoreManagementContext : DbContext
             entity.HasOne(d => d.Role).WithMany(p => p.Accounts)
                 .HasForeignKey(d => d.RoleId)
                 .HasConstraintName("FK_Account_Roles");
-        });
-
-        modelBuilder.Entity<Attribute>(entity =>
-        {
-            entity.HasNoKey();
-
-            entity.Property(e => e.AttributeId).HasColumnName("AttributeID");
-            entity.Property(e => e.Name).HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<AttributesPrice>(entity =>
-        {
-            entity.HasNoKey();
-
-            entity.Property(e => e.AttributeId).HasColumnName("AttributeID");
-            entity.Property(e => e.AttributesPriceId).HasColumnName("AttributesPriceID");
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
         });
 
         modelBuilder.Entity<Category>(entity =>
