@@ -11,15 +11,13 @@ public partial class Order
 
     public DateTime? OrderDate { get; set; }
 
-    public int? TransacStatusId { get; set; }
-
     public bool? Deleted { get; set; }
 
     public string? Note { get; set; }
 
+    public int? Status { get; set; }
+
     public virtual Customer? Customer { get; set; }
 
     public virtual ICollection<OrderDetail> OrderDetails { get; } = new List<OrderDetail>();
-
-    public virtual TransactStatus? TransacStatus { get; set; }
 }

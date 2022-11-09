@@ -33,8 +33,6 @@ public partial class MyStoreManagementContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<TransactStatus> TransactStatuses { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=HGTRG\\HGTRG;Database=MyStoreManagement;Uid=sa;Pwd=1234567890;Trusted_Connection=True;encrypt=false");
@@ -61,29 +59,19 @@ public partial class MyStoreManagementContext : DbContext
 
         modelBuilder.Entity<Attribute>(entity =>
         {
-            entity.Property(e => e.AttributeId)
-                .ValueGeneratedNever()
-                .HasColumnName("AttributeID");
+            entity.HasNoKey();
+
+            entity.Property(e => e.AttributeId).HasColumnName("AttributeID");
             entity.Property(e => e.Name).HasMaxLength(50);
         });
 
         modelBuilder.Entity<AttributesPrice>(entity =>
         {
-            entity.HasKey(e => e.AttributesPriceId).HasName("PK_Suppliers");
+            entity.HasNoKey();
 
-            entity.Property(e => e.AttributesPriceId)
-                .ValueGeneratedNever()
-                .HasColumnName("AttributesPriceID");
             entity.Property(e => e.AttributeId).HasColumnName("AttributeID");
+            entity.Property(e => e.AttributesPriceId).HasColumnName("AttributesPriceID");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-            entity.HasOne(d => d.Attribute).WithMany(p => p.AttributesPrices)
-                .HasForeignKey(d => d.AttributeId)
-                .HasConstraintName("FK_AttributesPrices_Attributes");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.AttributesPrices)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_AttributesPrices_Products");
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -117,15 +105,10 @@ public partial class MyStoreManagementContext : DbContext
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.OrderDate).HasColumnType("datetime");
-            entity.Property(e => e.TransacStatusId).HasColumnName("TransacStatusID");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CustomerId)
                 .HasConstraintName("FK_Orders_Customers1");
-
-            entity.HasOne(d => d.TransacStatus).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.TransacStatusId)
-                .HasConstraintName("FK_Orders_TransactStatus");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
@@ -165,16 +148,6 @@ public partial class MyStoreManagementContext : DbContext
                 .HasColumnName("RoleID");
             entity.Property(e => e.Description).HasMaxLength(50);
             entity.Property(e => e.RoleName).HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<TransactStatus>(entity =>
-        {
-            entity.ToTable("TransactStatus");
-
-            entity.Property(e => e.TransactStatusId)
-                .ValueGeneratedNever()
-                .HasColumnName("TransactStatusID");
-            entity.Property(e => e.Status).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);

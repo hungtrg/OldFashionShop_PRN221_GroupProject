@@ -25,8 +25,6 @@ public partial class Product
 
     public int? UnitsInStock { get; set; }
 
-    public virtual ICollection<AttributesPrice> AttributesPrices { get; } = new List<AttributesPrice>();
-
     public virtual Category? Cat { get; set; }
 
     public virtual ICollection<OrderDetail> OrderDetails { get; } = new List<OrderDetail>();
