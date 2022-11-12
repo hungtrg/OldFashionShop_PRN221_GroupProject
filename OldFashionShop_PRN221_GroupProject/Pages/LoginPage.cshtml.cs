@@ -55,7 +55,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
                 }
                 else
                 {
-                    return RedirectToPage("./Privacy");
+                    return RedirectToPage("./ShoppingWeb/HomePage");
                 }
             }
             else

@@ -8,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<MyStoreManagementContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("database")));
 
-builder.Services.AddRazorPages().AddRazorPagesOptions(opt => opt.Conventions.AddPageRoute("/LoginPage", ""));
+builder.Services.AddRazorPages().AddRazorPagesOptions(opt => opt.Conventions.AddPageRoute("/HomePage", ""));
 builder.Services.AddSingleton<IAccountRepository , AccountRepository>();
+builder.Services.AddSingleton<IProductRepository , ProductRepository>();
 
 builder.Services.AddSession(opt =>
 {
