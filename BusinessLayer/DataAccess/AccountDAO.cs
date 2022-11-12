@@ -43,13 +43,13 @@ namespace BusinessLayer.DataAccess
             return accounts;
         }
 
-        public Account GetAccountByID(int accountID)
+        public Account GetAccount(string email)
         {
             Account account = null;
             try
             {
                 var myStoreDB = new MyStoreManagementContext();
-                account = myStoreDB.Accounts.SingleOrDefault(account => account.AccountId == accountID);
+                account = myStoreDB.Accounts.SingleOrDefault(account => account.Email == email);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace BusinessLayer.DataAccess
         {
             try
             {
-                Account c = GetAccountByID(account.AccountId);
+                Account c = GetAccount(account.Email);
                 if (c == null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
@@ -84,7 +84,7 @@ namespace BusinessLayer.DataAccess
         {
             try
             {
-                Account c = GetAccountByID(account.AccountId);
+                Account c = GetAccount(account.Email);
                 if (c != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
@@ -106,7 +106,7 @@ namespace BusinessLayer.DataAccess
         {
             try
             {
-                Account c = GetAccountByID(account.AccountId);
+                Account c = GetAccount(account.Email);
                 if (c != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
