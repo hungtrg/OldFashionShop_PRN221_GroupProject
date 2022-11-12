@@ -1,4 +1,5 @@
-﻿using DataLayer.Models;
+﻿using BusinessLayer.DataAccess;
+using DataLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,22 @@ namespace BusinessLayer.Repository
     public interface IAccountRepository
     {
         IEnumerable<Account> GetAccounts();
-        Account GetAccountById(int id);
+        Account GetAccount(string email);
         void AddAccount(Account account);
         void UpdateAccount(Account account);
         void RemoveAccount(Account account);
+    }
+
+    public class AccountRepository : IAccountRepository
+    {
+        public void AddAccount(Account account) => AccountDAO.Instance.AddAccount(account);
+
+        public Account GetAccount(string email) => AccountDAO.Instance.GetAccount(email);
+
+        public IEnumerable<Account> GetAccounts() => AccountDAO.Instance.GetAccountList();
+
+        public void RemoveAccount(Account account) => AccountDAO.Instance.RemoveAccount(account);
+
+        public void UpdateAccount(Account account) => AccountDAO.Instance.UpdateAccount(account);
     }
 }
