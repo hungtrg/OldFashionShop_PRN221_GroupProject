@@ -29,7 +29,7 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a asp-page="/HomePage" class="logo">
                             <img src="assets/images/logo.png">
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -43,9 +43,9 @@
                                 <a href="javascript:;">Pages</a>
                                 <ul>
                                     <li><a href="about.html">About Us</a></li>
-                                    <li><a asp-page="./Products/Index">Product</a></li>
-                                    <li><a asp-page="./Products/Details">Product Details</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a asp-page="/Products/Index">Product</a></li>
+                                    <li><a asp-page="/Products/Details">Product Details</a></li>
+                                    <li><a asp-page="/LoginPage">Login</a></li>
                                 </ul>
                             </li>
                             @if (Context.Session.GetString("ROLE") != "Employee")
