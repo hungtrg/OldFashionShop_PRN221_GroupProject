@@ -58,6 +58,21 @@ namespace BusinessLayer.DataAccess
             return account;
         }
 
+        public Account CheckLogin(string email, string password)
+        {
+            Account account = null;
+            try
+            {
+                var myStoreDB = new MyStoreManagementContext();
+                account = myStoreDB.Accounts.SingleOrDefault(account => account.Email == email && account.Password == password);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return account;
+        }
+
         public void AddAccount(Account account)
         {
             try

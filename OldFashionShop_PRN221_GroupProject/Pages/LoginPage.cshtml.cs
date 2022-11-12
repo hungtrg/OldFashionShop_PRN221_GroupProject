@@ -26,41 +26,37 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
 
         public IActionResult OnPost()
         {
-            var account = this.accountRepository.GetAccount(Email);
-            if (account == null)
-            {
-                ViewData["ErrorMessage"] = "Wrong input format!";
-                return NotFound();
-            }
+            var account = this.accountRepository.CheckLogin(Email, Password);
             if (account != null)
             {
-                var checkRole = "";
-                switch (account.RoleId)
+                if (account.Active == true)
                 {
-                    case 0:
-                        checkRole = "Admin";
-                        break;
-                    case 1:
-                        checkRole = "Manager";
-                        break;
-                    case 2:
-                        checkRole = "Staff";
-                        break;
-                }
-                HttpContext.Session.SetString("ROLE", checkRole);
-                if (checkRole != "Manager" || checkRole == null)
-                {
-                    ViewData["ErrorMessage"] = "You are not allow to use this function!";
-                    return Page();
+                    var checkRole = "";
+                    switch (account.RoleId)
+                    {
+                        case 0:
+                            checkRole = "Admin";
+                            break;
+                        case 1:
+                            checkRole = "Manager";
+                            break;
+                        case 2:
+                            checkRole = "Staff";
+                            break;
+                    }
+                    HttpContext.Session.SetString("ROLE", checkRole);
+                    HttpContext.Session.SetString("FULLNAME", account.FullName);
+                    return RedirectToPage("./HomePage");
                 }
                 else
                 {
-                    return RedirectToPage("./ShoppingWeb/HomePage");
+                    ViewData["ErrorMessage"] = "Account Blocked, contact with Admin.";
+                    return Page();
                 }
             }
             else
             {
-                ViewData["ErrorMessage"] = "You are not allow to use this function!";
+                ViewData["ErrorMessage"] = "Wrong email or password!";
                 return Page();
             }
         }
