@@ -25,4 +25,8 @@
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Product Management\" />
+  </ItemGroup>
+
 </Project>
