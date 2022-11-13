@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="total">
-                            <h4>Total: $210.00</h4>
+                            <h4 class="total_price"></h4>
                             <div class="main-border-button"><a href="javascript:{}" onclick="document.getElementById('quanity_form').submit();">Add To Cart</a></div>
                         </div>
                     </form>
@@ -65,9 +65,26 @@
 </section>
 <!-- ***** Product Area Ends ***** -->
 <script type="text/javascript">
+    const priceElement = document.querySelector(".price");
+    const totalPriceElement = document.querySelector(".total_price");
     const decreaseBtn = document.getElementById("decrease");
     const increaseBtn = document.getElementById("increase");
     const quantityInput = document.getElementById("quantity");
-    decreaseBtn.onclick = () => quantityInput.value = +quantityInput.value - 1;
-    increaseBtn.onclick = () => quantityInput.value = +quantityInput.value + 1;
+
+    const price = priceElement.textContent.slice(1);
+    totalPriceElement.textContent = price;
+
+    decreaseBtn.onclick = () => {
+        if (quantityInput.value > 1)
+            quantityInput.value = +quantityInput.value - 1;
+
+        const totalPrice = price * +quantityInput.value;
+        totalPriceElement.textContent = "$" + totalPrice.toString();
+    };
+    increaseBtn.onclick = () => {
+        quantityInput.value = +quantityInput.value + 1;
+
+        const totalPrice = price * +quantityInput.value;
+        totalPriceElement.textContent = "$" + totalPrice.toString();
+    };
 </script>
