@@ -10,6 +10,16 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         public string quantity { get; set; }
         public void OnGet()
         {
+            this.productRepository = productRepository;
+        }
+
+        public Product Product { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            var product = this.productRepository.GetProductById(id);
+            Product = product;
+            return Page();
         }
 
 

@@ -6,24 +6,33 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
+using BusinessLayer.Repository;
 
 namespace OldFashionShop_PRN221_GroupProject.Pages.Products
 {
     public class IndexModel : PageModel
     {
-        private readonly DataLayer.Models.MyStoreManagementContext _context;
+        private readonly IProductRepository productRepository;
 
-        public IndexModel(DataLayer.Models.MyStoreManagementContext context)
+        public string search { get; set; }
+
+        public IndexModel(IProductRepository productRepository)
         {
-            _context = context;
+            this.productRepository = productRepository;
         }
 
-        public IList<Product> Product { get;set; }
+        public IList<Product> Product { get; set; } = default;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string search)
         {
-            Product = await _context.Products
-                .Include(p => p.Cat).ToListAsync();
+            if (!string.IsNullOrEmpty(search))
+            {
+                Product = this.productRepository.SearchProducts(search).ToList();
+            }
+            else
+            {
+                Product = this.productRepository.GetProducts().ToList();
+            }
         }
     }
 }

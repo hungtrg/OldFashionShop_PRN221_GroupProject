@@ -19,4 +19,5 @@ public partial class Account
 
     public int? RoleId { get; set; }
 
+    public virtual ICollection<Order> Orders { get; } = new List<Order>();
 }

@@ -11,19 +11,12 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
 {
     public class HomePageModel : PageModel
     {
-        private readonly DataLayer.Models.MyStoreManagementContext _context;
-
-        public HomePageModel(DataLayer.Models.MyStoreManagementContext context)
+        public HomePageModel()
         {
-            _context = context;
         }
-
-        public IList<Product> Product { get;set; }
 
         public async Task OnGetAsync()
         {
-            Product = await _context.Products
-                .Include(p => p.Cat).ToListAsync();
         }
     }
 }

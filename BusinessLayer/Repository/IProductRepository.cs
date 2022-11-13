@@ -11,6 +11,7 @@ namespace BusinessLayer.Repository
     public interface IProductRepository
     {
         IEnumerable<Product> GetProducts();
+        IEnumerable<Product> SearchProducts(string search);
         Product GetProductById(int id);
         void AddProduct(Product product);
         void UpdateProduct(Product product);
@@ -26,6 +27,8 @@ namespace BusinessLayer.Repository
         public IEnumerable<Product> GetProducts() => ProductDAO.Instance.GetProductList();
 
         public void RemoveProduct(Product product) => ProductDAO.Instance.RemoveProduct(product);
+
+        public IEnumerable<Product> SearchProducts(string search) => ProductDAO.Instance.SearchProducts(search);
 
         public void UpdateProduct(Product product) => ProductDAO.Instance.UpdateProduct(product);
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DataLayer.Models;
 
@@ -19,7 +20,7 @@ public partial class MyStoreManagementContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    //public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -28,8 +29,11 @@ public partial class MyStoreManagementContext : DbContext
     public virtual DbSet<Product> Products { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=HGTRG\\HGTRG;Database=MyStoreManagement;Uid=sa;Pwd=1234567890;Trusted_Connection=True;encrypt=false");
+    {
+        var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        IConfigurationRoot configuration = builder.Build();
+        optionsBuilder.UseSqlServer(configuration.GetConnectionString("database"));
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,31 +62,35 @@ public partial class MyStoreManagementContext : DbContext
             entity.Property(e => e.Title).HasMaxLength(250);
         });
 
-        modelBuilder.Entity<Customer>(entity =>
-        {
-            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
-            entity.Property(e => e.Address).HasMaxLength(255);
-            entity.Property(e => e.Avatar).HasMaxLength(255);
-            entity.Property(e => e.Birthday).HasColumnType("datetime");
-            entity.Property(e => e.Email)
-                .HasMaxLength(150)
-                .IsFixedLength();
-            entity.Property(e => e.FullName).HasMaxLength(255);
-            entity.Property(e => e.Password).HasMaxLength(50);
-            entity.Property(e => e.Phone)
-                .HasMaxLength(12)
-                .IsUnicode(false);
-        });
+        //modelBuilder.Entity<Customer>(entity =>
+        //{
+        //    entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+        //    entity.Property(e => e.Address).HasMaxLength(255);
+        //    entity.Property(e => e.Avatar).HasMaxLength(255);
+        //    entity.Property(e => e.Birthday).HasColumnType("datetime");
+        //    entity.Property(e => e.Email)
+        //        .HasMaxLength(150)
+        //        .IsFixedLength();
+        //    entity.Property(e => e.FullName).HasMaxLength(255);
+        //    entity.Property(e => e.Password).HasMaxLength(50);
+        //    entity.Property(e => e.Phone)
+        //        .HasMaxLength(12)
+        //        .IsUnicode(false);
+        //});
 
         modelBuilder.Entity<Order>(entity =>
         {
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
-            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+            //entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.OrderDate).HasColumnType("datetime");
 
-            entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK_Orders_Customers1");
+            //entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
+            //    .HasForeignKey(d => d.CustomerId)
+            //    .HasConstraintName("FK_Orders_Customers1");
+
+            entity.HasOne(d => d.Account).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.AccountId)
+                .HasConstraintName("FK_Orders_Account");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
