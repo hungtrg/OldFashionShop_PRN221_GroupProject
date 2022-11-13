@@ -81,7 +81,7 @@ namespace BusinessLayer.DataAccess
                 if (c == null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Accounts.Add(c);
+                    myStoreDB.Accounts.Add(account);
                     myStoreDB.SaveChanges();
                 }
                 else

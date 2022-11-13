@@ -19,5 +19,4 @@ public partial class Account
 
     public int? RoleId { get; set; }
 
-    public virtual Role? Role { get; set; }
 }

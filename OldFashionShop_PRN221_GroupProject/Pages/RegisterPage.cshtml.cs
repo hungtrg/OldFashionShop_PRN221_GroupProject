@@ -44,7 +44,6 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
             {
                 Account account = new Account
                 {
-                    AccountId = Account.AccountId,
                     FullName = Account.FullName,
                     Email = Account.Email,
                     Password = Password,

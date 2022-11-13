@@ -27,8 +27,6 @@ public partial class MyStoreManagementContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<Role> Roles { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=HGTRG\\HGTRG;Database=MyStoreManagement;Uid=sa;Pwd=1234567890;Trusted_Connection=True;encrypt=false");
@@ -48,9 +46,6 @@ public partial class MyStoreManagementContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
-            entity.HasOne(d => d.Role).WithMany(p => p.Accounts)
-                .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK_Account_Roles");
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -118,15 +113,6 @@ public partial class MyStoreManagementContext : DbContext
             entity.HasOne(d => d.Cat).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CatId)
                 .HasConstraintName("FK_Products_Categories1");
-        });
-
-        modelBuilder.Entity<Role>(entity =>
-        {
-            entity.Property(e => e.RoleId)
-                .ValueGeneratedNever()
-                .HasColumnName("RoleID");
-            entity.Property(e => e.Description).HasMaxLength(50);
-            entity.Property(e => e.RoleName).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);
