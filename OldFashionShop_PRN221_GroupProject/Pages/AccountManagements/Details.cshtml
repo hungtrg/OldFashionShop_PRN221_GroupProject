@@ -1,0 +1,57 @@
+﻿@page
+@model OldFashionShop_PRN221_GroupProject.Pages.AccountManagements.DetailsModel
+
+<div class="main-banner" id="top">
+    <div class="container-fluid">
+
+        <h1>Details</h1>
+
+        <div>
+            <h4>Account</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Account.Phone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Account.Phone)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Account.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Account.Email)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Account.Password)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Account.Password)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Account.Active)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Account.Active)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Account.FullName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Account.FullName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Account.RoleId)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Account.RoleId)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-page="./Edit" asp-route-id="@Model.Account?.Email">Edit</a> |
+            <a asp-page="./Index">Back to List</a>
+        </div>
+    </div>
+</div>
+

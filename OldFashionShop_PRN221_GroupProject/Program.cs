@@ -11,6 +11,7 @@ builder.Services.AddDbContext<MyStoreManagementContext>(opt => opt.UseSqlServer(
 builder.Services.AddRazorPages().AddRazorPagesOptions(opt => opt.Conventions.AddPageRoute("/HomePage", ""));
 builder.Services.AddSingleton<IAccountRepository , AccountRepository>();
 builder.Services.AddSingleton<IProductRepository , ProductRepository>();
+builder.Services.AddSingleton<ICategoryRepository , CategoryRepository>();
 
 builder.Services.AddSession(opt =>
 {

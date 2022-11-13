@@ -11,6 +11,7 @@ namespace BusinessLayer.Repository
     public interface IAccountRepository
     {
         IEnumerable<Account> GetAccounts();
+        IEnumerable<Account> SearchAccounts(string search);
         Account GetAccount(string email);
         Account CheckLogin(string email, string password);
         void AddAccount(Account account);
@@ -27,6 +28,8 @@ namespace BusinessLayer.Repository
         public Account GetAccount(string email) => AccountDAO.Instance.GetAccount(email);
 
         public IEnumerable<Account> GetAccounts() => AccountDAO.Instance.GetAccountList();
+
+        public IEnumerable<Account> SearchAccounts(string search) => AccountDAO.Instance.SearchAccounts(search);
 
         public void RemoveAccount(Account account) => AccountDAO.Instance.RemoveAccount(account);
 

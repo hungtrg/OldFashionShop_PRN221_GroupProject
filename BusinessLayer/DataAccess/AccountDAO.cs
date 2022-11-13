@@ -43,6 +43,21 @@ namespace BusinessLayer.DataAccess
             return accounts;
         }
 
+        public IEnumerable<Account> SearchAccounts(string search)
+        {
+            List<Account> accounts;
+            try
+            {
+                var accountDB = new MyStoreManagementContext();
+                accounts = accountDB.Accounts.Where(accounts => accounts.FullName.Contains(search) || accounts.Phone.Contains(search)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return accounts;
+        }
+
         public Account GetAccount(string email)
         {
             Account account = null;
