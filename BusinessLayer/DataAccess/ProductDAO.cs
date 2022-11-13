@@ -42,6 +42,21 @@ namespace BusinessLayer.DataAccess
             return products;
         }
 
+        public IEnumerable<Product> SearchProducts(string search)
+        {
+            List<Product> products;
+            try
+            {
+                var productDB = new MyStoreManagementContext();
+                products = productDB.Products.Where(products => products.ProductName.Contains(search) || products.Title.Contains(search)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return products;
+        }
+
         public Product GetProductByID(int productID)
         {
             Product product = null;
