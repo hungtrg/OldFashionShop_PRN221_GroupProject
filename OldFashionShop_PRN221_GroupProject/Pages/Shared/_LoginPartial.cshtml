@@ -5,11 +5,11 @@
         <ul>
             @if (Context.Session.GetString("ROLE") == "Manager")
             {
-                 <li><a href="#">Product Management</a></li>
+                <li><a asp-page="/ProductManagements/Index">Product Management</a></li>
             }
-            @if (Context.Session.GetString("ROLE") == "Admin")
+            @if (Context.Session.GetString("ROLE") == "Manager")
             {
-                 <li><a href="#">Features Page 2</a></li>
+                <li><a asp-page="/AccountManagements/Index">Account Management</a></li>
             }
             @if (Context.Session.GetString("ROLE") == "Admin")
             {

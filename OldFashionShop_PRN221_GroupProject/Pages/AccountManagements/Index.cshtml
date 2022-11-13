@@ -1,0 +1,72 @@
+﻿@page
+@model OldFashionShop_PRN221_GroupProject.Pages.AccountManagements.IndexModel
+
+
+<div class="main-banner" id="top">
+    <div class="container-fluid">
+        <h1>Index</h1>
+
+        <p>
+            <a asp-page="Create">Create New</a>
+        </p>
+        <form method="get">
+            <input type="text" asp-for="search" />
+            <button type="submit">Search</button>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].Password)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].Active)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].RoleId)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Account)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Active)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleId)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-email="@item.Email">Edit</a> |
+                            <a asp-page="./Details" asp-route-email="@item.Email">Details</a> |
+                            <a asp-page="./Delete" asp-route-email="@item.Email">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@page
+@model OldFashionShop_PRN221_GroupProject.Pages.ProductManagements.CreateModel
+
+<div class="main-banner" id="top">
+    <div class="container-fluid">
+        <h1>Create</h1>
+
+        <h4>Product</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Product.ProductName" class="control-label"></label>
+                        <input asp-for="Product.ProductName" class="form-control" />
+                        <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Description" class="control-label"></label>
+                        <input asp-for="Product.Description" class="form-control" />
+                        <span asp-validation-for="Product.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.CatId" class="control-label"></label>
+                        <select asp-for="Product.CatId" class="form-control" asp-items="ViewBag.CatId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Price" class="control-label"></label>
+                        <input asp-for="Product.Price" class="form-control" />
+                        <span asp-validation-for="Product.Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Discount" class="control-label"></label>
+                        <input asp-for="Product.Discount" class="form-control" />
+                        <span asp-validation-for="Product.Discount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Thumb" class="control-label"></label>
+                        <input asp-for="Product.Thumb" class="form-control" />
+                        <span asp-validation-for="Product.Thumb" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Product.Active" /> @Html.DisplayNameFor(model => model.Product.Active)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Title" class="control-label"></label>
+                        <input asp-for="Product.Title" class="form-control" />
+                        <span asp-validation-for="Product.Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.UnitsInStock" class="control-label"></label>
+                        <input asp-for="Product.UnitsInStock" class="form-control" />
+                        <span asp-validation-for="Product.UnitsInStock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-page="Index">Back to List</a>
+        </div>
+    </div>
+</div>
