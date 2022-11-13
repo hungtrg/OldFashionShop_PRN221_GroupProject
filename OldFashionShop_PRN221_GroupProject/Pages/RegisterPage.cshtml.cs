@@ -27,6 +27,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
         [StringLength(maximumLength: 20, 
             ErrorMessage = "Password's length at least 6 character!", 
             MinimumLength = 6)]
+        [DataType(DataType.Password)]
         [Required(ErrorMessage = "Confirm Password is required!")]
         public string Password { get; set; }
 
@@ -35,6 +36,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
             ErrorMessage = "Password's length at least 6 character!",
             MinimumLength = 6)]
         [Required(ErrorMessage = "Confirm Password is required")]
+        [DataType(DataType.Password)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
@@ -53,7 +55,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
 
                 };
                 accountRepository.AddAccount(account);
-                return RedirectToPage("/HomePage");
+                return RedirectToPage("/LoginPage");
             }
             catch (Exception ex)
             {

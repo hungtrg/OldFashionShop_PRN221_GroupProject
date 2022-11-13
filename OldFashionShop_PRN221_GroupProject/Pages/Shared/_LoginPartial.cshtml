@@ -3,9 +3,9 @@
     <li class="submenu">
         <a href="javascript:;">Features</a>
         <ul>
-            @if (Context.Session.GetString("ROLE") == "Admin")
+            @if (Context.Session.GetString("ROLE") == "Manager")
             {
-                 <li><a href="#">Features Page 1</a></li>
+                 <li><a href="#">Product Management</a></li>
             }
             @if (Context.Session.GetString("ROLE") == "Admin")
             {
@@ -21,9 +21,11 @@
 <li class="submenu">
     @if (Context.Session.GetString("ROLE") != null)
     {
+        string email = Context.Session.GetString("EMAIL");
+       
         <a href="javascript:;">Welcome Username</a>
         <ul>
-            <li><a href="#">My Profile</a></li>
+            <li><a asp-page="/Profile/MyProfile" asp-route-email="@email">My Profile</a></li>
             <li><a href="#">View Cart</a></li>
             <li><a href="#">My Orders</a></li>
             <li><a asp-page="/LogoutPage">Logout</a></li>

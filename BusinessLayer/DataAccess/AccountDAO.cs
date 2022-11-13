@@ -103,7 +103,7 @@ namespace BusinessLayer.DataAccess
                 if (c != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Entry<Account>(c).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    myStoreDB.Entry<Account>(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     myStoreDB.SaveChanges();
                 }
                 else

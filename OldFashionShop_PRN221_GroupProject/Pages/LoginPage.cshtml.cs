@@ -45,6 +45,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
                             break;
                     }
                     HttpContext.Session.SetString("ROLE", checkRole);
+                    HttpContext.Session.SetString("EMAIL", account.Email);
                     HttpContext.Session.SetString("FULLNAME", account.FullName);
                     return RedirectToPage("./HomePage");
                 }
