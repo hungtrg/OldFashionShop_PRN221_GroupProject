@@ -48,21 +48,7 @@
                                     <li><a asp-page="/LoginPage">Login</a></li>
                                 </ul>
                             </li>
-                            @if (Context.Session.GetString("ROLE") != "Employee")
-                            {
-                                <li class="submenu">
-                                    <a href="javascript:;">Features</a>
-                                    <ul>
-                                        @if (Context.Session.GetString("ROLE") == "Admin")
-                                        {
-                                        <li><a href="#">Features Page 1</a></li>
-                                        }
-                                        <li><a href="#">Features Page 2</a></li>
-                                        <li><a href="#">Features Page 3</a></li>
-                                        <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li>
-                                    </ul>
-                                </li>
-                            }
+                            <partial name="_LoginPartial" />
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>

@@ -1,0 +1,36 @@
+﻿@if (Context.Session.GetString("ROLE") == "Admin" || Context.Session.GetString("ROLE") == "Manager" || Context.Session.GetString("ROLE") == "Staff")
+{
+    <li class="submenu">
+        <a href="javascript:;">Features</a>
+        <ul>
+            @if (Context.Session.GetString("ROLE") == "Admin")
+            {
+                 <li><a href="#">Features Page 1</a></li>
+            }
+            @if (Context.Session.GetString("ROLE") == "Admin")
+            {
+                 <li><a href="#">Features Page 2</a></li>
+            }
+            @if (Context.Session.GetString("ROLE") == "Admin")
+            {
+                 <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 3</a></li>
+            }
+        </ul>
+    </li>
+}
+<li class="submenu">
+    @if (Context.Session.GetString("ROLE") != null)
+    {
+        <a href="javascript:;">Welcome Username</a>
+        <ul>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="#">View Cart</a></li>
+            <li><a href="#">My Orders</a></li>
+            <li><a asp-page="/LogoutPage">Logout</a></li>
+        </ul>
+    }
+    else
+    {
+        <a asp-page="/LoginPage">Login</a>
+    }
+</li>

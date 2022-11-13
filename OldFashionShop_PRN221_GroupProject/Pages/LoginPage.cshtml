@@ -1,20 +1,31 @@
 ﻿@page
 @model OldFashionShop_PRN221_GroupProject.Pages.LoginPageModel
 
-
-<form method="post">
-    <div>
-        <label for="username">Username</label>
-        <input name="username" type="text"id="username" value="admin" required>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div role="alert">
+        @ViewBag.ErrorMessage
     </div>
-    <div>
-        <label for="password" >Password</label>
-        <input name="password" type="password">
+}
+<!-- ***** Main Login Area Start ***** -->
+<div class="main-banner" id="top">
+    <div class="container-fluid">
+        <div class="row">
+            <form method="post">
+                <div>
+                    <label for="email">Email</label>
+                    <input name="email" type="text" id="email" asp-for="Email" placeholder="Input Email" required>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input name="password" type="password" asp-for="Password" placeholder="Input Password" required>
+                </div>
+                <div>
+                    <button type="submit">Login</button>
+                    <a asp-page="/RegisterPage">Register</a>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <button type="submit" >Login</button>
-    </div>
-    <div>
-        <p><em>Just put a character to login.</em></p>
-    </div>
-</form>
+</div>
+<!-- ***** Main Login Area End ***** -->
