@@ -43,6 +43,21 @@ namespace BusinessLayer.DataAccess
             return orders;
         }
 
+        public IEnumerable<Order> SearchOrders(string search)
+        {
+            List<Order> orders;
+            try
+            {
+                var myStoreDB = new MyStoreManagementContext();
+                orders = myStoreDB.Orders.Where(orders => orders.AccountId.ToString().Contains(search) || orders.OrderDate.ToString().Contains(search)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return orders;
+        }
+
         public Order GetOrderByID(int orderID)
         {
             Order order = null;

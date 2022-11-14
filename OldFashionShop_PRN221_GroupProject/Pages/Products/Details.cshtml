@@ -50,7 +50,6 @@
                                     <input type="submit" value="-" class="minus" id="decrease" />
                                     <input type="number" step="1" min="1" max="" name="quantity" asp-for="Quantity" value="@Model.Quantity" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="quantity"/>
                                     <input type="submit" value="+" class="plus" id="increase" />
-                                    @*<input type="hidden" asp-for="Id" value="@Model.Product.ProductId"/>*@
                                 </div>
                             </div>
                         </div>
@@ -58,7 +57,7 @@
                         <div class="total">
                             <h4 class="total_price"></h4>
                             <div class="main-border-button">
-                            <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Product.ProductId" asp-route-id1="@Model.Quantity">Add To Cart</a>
+                            <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Product.ProductId" asp-route-quantity="@Model.Quantity">Add To Cart</a>
                             </div>
                         </div>
                 </div>
