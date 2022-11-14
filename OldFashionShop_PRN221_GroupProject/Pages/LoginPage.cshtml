@@ -9,22 +9,32 @@
 }
 <!-- ***** Main Login Area Start ***** -->
 <div class="main-banner" id="top">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <form method="post">
-                <div>
-                    <label for="email">Email</label>
-                    <input name="email" type="text" id="email" asp-for="Email" placeholder="Input Email" required>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input name="password" type="password" asp-for="Password" placeholder="Input Password" required>
-                </div>
-                <div>
-                    <button type="submit">Login</button>
-                    <a asp-page="/RegisterPage">Register</a>
-                </div>
-            </form>
+            @*<div class="col-md-4 offset-md-4">*@
+                <div class="col-5 mx-auto">
+
+                <form method="post" id="login_form">
+                    <div class="card text-center card bg-default mb-3">
+                        <div class="card-header">
+                            LOGIN
+                        </div>
+                        <div class="card-body my-2">
+                            <label asp-for="Email" class="control-label text-left w-100"></label>
+                            <input class="form-control input-sm chat-input" name="email" type="text" asp-for="Email" placeholder="" required>
+                            <br />
+                            <label asp-for="Password" class="control-label text-left w-100"></label>
+                            <input class="form-control input-sm chat-input" name="password" type="password" asp-for="Password" placeholder="" required>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <a href="javascript:{}" onclick="document.getElementById('login_form').submit();" class="btn btn-secondary mr-3 mb-2">LOGIN</a>
+                            <br/>
+                            <span class="">Don't have account <a asp-page="/RegisterPage">Register here</a></span>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
         </div>
     </div>
 </div>
