@@ -3,6 +3,7 @@ using DataLayer.Models;
 using DataLayer.RedirectModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
 using OldFashionShop_PRN221_GroupProject.Helpers;
 
 namespace OldFashionShop_PRN221_GroupProject.Pages.Products
@@ -86,51 +87,31 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
 
         public IActionResult OnPostEdit(int id, int quantity)
         {
-            if (Request.Form.Keys.Contains("Edit") != null)
+            var product = _productRepository.GetProductById(Id);
+            var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+            var index = Exists(cart, product.ProductId);
+            if (index == -1)
             {
-                var product = _productRepository.GetProductById(Id);
-                var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
-                var index = Exists(cart, product.ProductId);
-                if (index == -1)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    var newQuantity = Quantity;
-                    var newTotal = product.Price * newQuantity;
-                    cart[index].Quantity = newQuantity;
-                    cart[index].Total = newTotal;
-                }
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-
-                Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
-                if (Cart != null)
-                {
-                    foreach (var item in Cart)
-                    {
-                        var products = _productRepository.GetProductById((int)item.ProductId);
-
-                        FinalAmount += (int)products.Price * (int)item.Quantity;
-                    }
-                }
-                return Page();
+                return NotFound();
             }
-            else if (Request.Form["Delete"].ToString() != null)
+            else
             {
-                var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
-                var product = _productRepository.GetProductById(id);
+                var newQuantity = Quantity;
+                var newTotal = product.Price * newQuantity;
+                cart[index].Quantity = newQuantity;
+                cart[index].Total = newTotal;
+            }
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
-                var index = Exists(Cart, id);
-                if (index == -1)
+            Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+            if (Cart != null)
+            {
+                foreach (var item in Cart)
                 {
-                    return NotFound();
-                }
-                Cart.RemoveAt(index);
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+                    var products = _productRepository.GetProductById((int)item.ProductId);
 
-                Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
-                return Page();
+                    FinalAmount += (int)products.Price * (int)item.Quantity;
+                }
             }
             return Page();
         }
@@ -182,22 +163,22 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             return -1;
         }
 
-        //public IActionResult OnPostDelete(int id)
-        //{
-        //    var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
-        //    var product = _productRepository.GetProductById(id);
+        public IActionResult OnPostDelete(int id)
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+            var product = _productRepository.GetProductById(id);
 
-        //    var index = Exists(Cart, id);
-        //    if (index == -1)
-        //    {
-        //        return NotFound();
-        //    }
-        //    Cart.RemoveAt(index);
-        //    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            var index = Exists(cart, id);
+            if (index == -1)
+            {
+                return NotFound();
+            }
+            cart.RemoveAt(index);
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
-        //    Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
-        //    return Page();
-        //}
+            Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+            return Page();
+        }
 
     }
 }
