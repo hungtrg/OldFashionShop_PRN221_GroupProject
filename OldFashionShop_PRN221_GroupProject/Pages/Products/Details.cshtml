@@ -50,15 +50,15 @@
                                     <input type="button" value="-" class="minus" id="decrease" />
                                     <input type="number" step="1" min="1" max="" name="quantity" asp-for="Quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="quantity" />
                                     <input type="button" value="+" class="plus" id="increase" />
-                                    <input type="hidden" asp-for="Id" value="@Model.Product.ProductId" />
+                                    <input type="hidden" asp-for="Id" value="@Model.Product.ProductId" id="product_id" />
                                 </div>
                             </div>
                         </div>
                     </form>
                     <div class="total">
                         <h4 class="total_price"></h4>
-                        <div class="main-border-button">
-                            <a id="add_to_cart" asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Product.ProductId" asp-route-quantity="1">Add To Cart</a>
+                        <div class="main-border-button" id="add_to_cart">
+                            <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Product.ProductId" asp-route-quantity="1">Add To Cart</a>
                         </div>
                     </div>
                 </div>
@@ -74,6 +74,7 @@
     const increaseBtn = document.getElementById("increase");
     const quantityInput = document.getElementById("quantity");
     const addToCartElement = document.getElementById("add_to_cart");
+    const productIdElement = document.getElementById("product_id");
 
     const price = priceElement.textContent.slice(1);
     totalPriceElement.textContent = price;
@@ -82,7 +83,7 @@
         if (quantityInput.value > 1)
             quantityInput.value = +quantityInput.value - 1;
 
-        addToCartElement.setAttribute("asp-route-quantity", quantityInput.value);
+        addToCartElement.innerHTML = `<a href="/Products/Cart?id=${productIdElement.value}&amp;quantity=${quantityInput.value}&amp;handler=buy" id="add_to_cart" asp-page="Cart" asp-page-handler="buy" asp-route-id="${productIdElement.value}" asp-route-quantity=${quantityInput.value}> Add To Cart </a>`;
 
         const totalPrice = price * +quantityInput.value;
         totalPriceElement.textContent = "$" + totalPrice.toString();
@@ -90,7 +91,7 @@
     increaseBtn.onclick = () => {
         quantityInput.value = +quantityInput.value + 1;
 
-        addToCartElement.setAttribute("asp-route-quantity", quantityInput.value);
+        addToCartElement.innerHTML = `<a href="/Products/Cart?id=${productIdElement.value}&amp;quantity=${quantityInput.value}&amp;handler=buy" id="add_to_cart" asp-page="Cart" asp-page-handler="buy" asp-route-id="${productIdElement.value}" asp-route-quantity=${quantityInput.value}> Add To Cart </a>`;
 
         const totalPrice = price * +quantityInput.value;
         totalPriceElement.textContent = "$" + totalPrice.toString();
