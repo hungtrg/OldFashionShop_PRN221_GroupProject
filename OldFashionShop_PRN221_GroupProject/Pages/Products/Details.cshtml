@@ -97,5 +97,8 @@
         totalPriceElement.textContent = "$" + totalPrice.toString();
     };
 
+    window.onunload = function () {
+        quantityInput.value = 1;
+    };
 
 </script>
