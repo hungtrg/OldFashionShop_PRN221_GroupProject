@@ -51,6 +51,8 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Profile
                 return Page();
             }
             this.accoutRepository.UpdateAccount(Account);
+            HttpContext.Session.SetString("FULLNAME", Account.FullName);
+            ViewData["ErrorMessage"] = "Update successed!";
 
             return Page();
         }
