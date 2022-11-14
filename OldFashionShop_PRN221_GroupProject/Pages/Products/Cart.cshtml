@@ -1,5 +1,11 @@
 ﻿@page
 @model OldFashionShop_PRN221_GroupProject.Pages.Products.CartModel
+@if (ViewBag.ErrorMessage != null)
+{
+        <div role="alert">
+        @ViewBag.ErrorMessage
+        </div>
+}
 
 <div class="main-banner" id="top">
     <div class="container">
@@ -10,22 +16,35 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
+                <th></th>
             </tr>
             <tr>Final Amount</tr>
-            @foreach (var item in Model.Cart)
-            {
-                var finalAmount = 0;
-                finalAmount = finalAmount + (int)item.Total;
-                <tr>
-                    <td>@item.Product.ProductName</td>
-                    <td>@item.Product.Price</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.Total</td>
-                </tr>
-                <tr>
-                    <td>@finalAmount</td>
-                </tr>
-            }
+            <form method="post" asp-page-handler="Edit">
+                @foreach (var item in Model.Cart)
+                {
+                    var finalAmount = 0;
+                    finalAmount = finalAmount + (int) item.Total;
+                    <tr>
+                        <td>@item.ProductName</td>
+                        @*<td>@item.Product.Price</td>*@
+                            <td><input value="@item.Quantity"/></td>
+                        <td>@item.Total</td>
+                        <td>
+                                <input type="hidden" asp-for="Quantity" value="@item.Quantity"/>
+                                <input type="hidden" asp-for="Id" value="@item.ProductId"/>
+                                <button type="submit">Edit</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@finalAmount</td>
+                    </tr>
+                }
+            </form>
+            <form method="post" asp-page-handler="CheckOut">
+                <input type="hidden" asp-for="Cart" />
+                <input type="text" asp-for="Note"/>
+                <button type="submit">Check out</button>
+            </form>
         </table>
         <br />
         <a asp-page="Index">Continute Shopping</a>

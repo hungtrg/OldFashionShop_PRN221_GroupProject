@@ -73,7 +73,7 @@ namespace BusinessLayer.DataAccess
             return order;
         }
 
-        public void AddOrder(Order order)
+        public Order AddOrder(Order order)
         {
             try
             {
@@ -81,8 +81,9 @@ namespace BusinessLayer.DataAccess
                 if (c == null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Orders.Add(c);
+                    myStoreDB.Orders.Add(order);
                     myStoreDB.SaveChanges();
+                    return order;
                 }
                 else
                 {
@@ -91,7 +92,8 @@ namespace BusinessLayer.DataAccess
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
+                return null;
             }
         }
 

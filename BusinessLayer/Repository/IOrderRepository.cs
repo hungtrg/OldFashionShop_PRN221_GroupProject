@@ -13,14 +13,14 @@ namespace BusinessLayer.Repository
         IEnumerable<Order> GetOrders();
         IEnumerable<Order> SearchOrders(string search);
         Order GetOrderById(int id);
-        void AddOrder(Order order);
+        Order AddOrder(Order order);
         void UpdateOrder(Order order);
         void RemoveOrder(Order order);
     }
 
     public class OrderRepository : IOrderRepository
     {
-        public void AddOrder(Order order) => OrderDAO.Instance.AddOrder(order);
+        public Order AddOrder(Order order) => OrderDAO.Instance.AddOrder(order);
 
         public Order GetOrderById(int id) => OrderDAO.Instance.GetOrderByID(id);
 
