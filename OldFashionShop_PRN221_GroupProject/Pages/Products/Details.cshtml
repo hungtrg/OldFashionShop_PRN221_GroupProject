@@ -59,7 +59,7 @@
                             <h4 class="total_price"></h4>
                             <div class="main-border-button">
                                 @*<a href="javascript:{}" onclick="document.getElementById('quanity_form').submit();">Add To Cart</a></div>*@
-                                <a asp-page="Cart" asp-page-handler="buy" asp-route-id1="@Model.Id" asp-route-id2="@Model.Quantity">Add To Cart</a>
+                                <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Id" asp-route-quantity="@Model.Quantity">Add To Cart</a>
                             </div>
                         </div>
                 </div>
