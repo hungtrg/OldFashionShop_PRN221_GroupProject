@@ -20,11 +20,13 @@
                             LOGIN
                         </div>
                         <div class="card-body my-2">
-                            <label asp-for="Email" class="control-label text-left w-100"></label>
-                            <input class="form-control input-sm chat-input" name="email" type="text" asp-for="Email" placeholder="" required>
+                            <label asp-for="Account.Email" class="control-label text-left w-100"></label>
+                            <input asp-for="Account.Email" class="form-control input-sm chat-input" />
+                            <span asp-validation-for="Account.Email" class="text-danger"></span>
                             <br />
-                            <label asp-for="Password" class="control-label text-left w-100"></label>
-                            <input class="form-control input-sm chat-input" name="password" type="password" asp-for="Password" placeholder="" required>
+                            <label asp-for="Account.Password" class="control-label text-left w-100"></label>
+                            <input asp-for="Account.Password" class="form-control input-sm chat-input" />
+                            <span asp-validation-for="Account.Password" class="text-danger"></span>
                         </div>
                         <div class="card-footer text-muted">
                             <a href="javascript:{}" onclick="document.getElementById('login_form').submit();" class="btn btn-secondary mr-3 mb-2">LOGIN</a>
@@ -38,4 +40,9 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
 <!-- ***** Main Login Area End ***** -->
