@@ -50,7 +50,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
                     Email = Account.Email,
                     Password = Password,
                     Phone = Account.Phone,
-                    RoleId = 3,
+                    RoleId = 4,
                     Active = true
 
                 };

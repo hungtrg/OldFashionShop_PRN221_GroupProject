@@ -23,8 +23,7 @@
         <a href="javascript:;">Welcome @Context.Session.GetString("FULLNAME")</a>
         <ul>
             <li><a asp-page="/Profile/MyProfile" asp-route-email="@email">My Profile</a></li>
-            <li><a href="#">View Cart</a></li>
-            <li><a href="#">My Orders</a></li>
+            <li><a asp-page="/Orders/Index">My Orders</a></li>
             <li><a asp-page="/LogoutPage">Logout</a></li>
         </ul>
     }

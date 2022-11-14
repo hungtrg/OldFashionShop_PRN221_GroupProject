@@ -1,0 +1,66 @@
+﻿@page
+@model OldFashionShop_PRN221_GroupProject.Pages.Orders.IndexModel
+
+<div class="main-banner" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-5 mx-auto">
+                <p>
+                    <a asp-page="Create">Create New</a>
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Order[0].OrderDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Order[0].Deleted)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Order[0].Note)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Order[0].Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Order[0].Account)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Order)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Deleted)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Note)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AccountId)
+                                </td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
+                                    <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
+                                    <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Index</h1>
+
+
