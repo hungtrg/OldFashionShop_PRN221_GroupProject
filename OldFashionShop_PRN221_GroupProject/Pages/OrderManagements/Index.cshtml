@@ -1,63 +1,125 @@
 ﻿@page
 @model OldFashionShop_PRN221_GroupProject.Pages.OrderManagements.IndexModel
 
+<style>
+    .table {
+        /*table-layout: fixed;*/
+    }
+
+        .table td, th {
+            max-width: 200px !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+    .form-control {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+    }
+
+    .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        box-shadow: 0 1px 0 0 black;
+    }
+
+    .active-cyan input.form-control[type=text] {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        box-shadow: 0 1px 0 0 black;
+    }
+
+    .search {
+        position: relative;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 15%;
+        text-decoration: none;
+        color: inherit;
+        opacity: 0.7;
+    }
+
+        .search-btn:hover {
+            text-decoration: none;
+            color: inherit;
+            opacity: 1;
+        }
+
+</style>
+
 <div class="main-banner" id="top">
-    <div class="container-fluid">
-        <p>
-            <a asp-page="Create">Create New</a>
-        </p>
-        <form method="get">
-            <input type="text" asp-for="search" />
-            <button type="submit">Search</button>
-        </form>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Order[0].OrderDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Order[0].Deleted)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Order[0].Note)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Order[0].Status)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Order[0].Account)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Order)
-                {
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <button asp-page="Create" class="btn btn-outline-dark text-decoration-none">
+                Create New
+            </button>
+            <form method="get" id="search_form">
+
+                <div class="md-form active-cyan-2 mb-3 d-flex align-items-center justify-content-between">
+                    <input class="form-control search" type="text" placeholder="Search name of item" aria-label="Search" asp-for="search">
+                    <a href="javascript:{}" onclick="document.getElementById('search_form').submit();" class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-icon" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> </svg>
+                        <a />
+                </div>
+
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.OrderDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Deleted)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Note)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Account.AccountId)
-                        </td>
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].OrderDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].Deleted)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].Note)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].Account)
+                        </th>
+                        <th style="max-width:100% !important"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Order)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Deleted)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Note)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Account.AccountId)
+                            </td>
+                            <td style="max-width:100% !important">
+                                <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
+                                <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
+                                <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
