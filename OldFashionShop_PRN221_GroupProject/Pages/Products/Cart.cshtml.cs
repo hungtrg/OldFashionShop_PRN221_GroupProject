@@ -19,12 +19,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         {
             Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
         }
-        public IActionResult OnGetBuy(int id1, int id2)
+        public IActionResult OnGetBuy(int id, int quantity)
         {
-            //var intId = int.Parse(id);
-            //var intQuantity = int.Parse(quantity);
-            var quantity = id2;
-            var product = _productRepository.GetProductById(id1);
+            var product = _productRepository.GetProductById(id);
             var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
             if (cart == null)
             {
