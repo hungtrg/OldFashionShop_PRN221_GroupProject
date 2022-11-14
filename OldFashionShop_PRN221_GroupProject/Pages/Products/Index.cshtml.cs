@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Models;
+using OldFashionShop_PRN221_GroupProject.Pages.Helpers;
+using Microsoft.EntityFrameworkCore;
 using BusinessLayer.Repository;
 
 namespace OldFashionShop_PRN221_GroupProject.Pages.Products
@@ -13,26 +9,40 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
     public class IndexModel : PageModel
     {
         private readonly IProductRepository productRepository;
+        private readonly ICategoryRepository categoryRepository;
+        private readonly IConfiguration Configuration;
 
-        public string search { get; set; }
-
-        public IndexModel(IProductRepository productRepository)
+        public IndexModel(IConfiguration configuration, IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
+            Configuration = configuration;
             this.productRepository = productRepository;
+            this.categoryRepository = categoryRepository;
         }
 
-        public IList<Product> Product { get; set; } = default;
+        public PaginatedList<Product> Product { get; set; }
+        public IList<Category> Categories { get; set; }
+        public string search { get; set; }
+        public string filter { get; set; }
 
-        public async Task OnGetAsync(string search)
+        public async Task OnGetAsync(string search, string? filter, int? pageIndex)
         {
-            if (!string.IsNullOrEmpty(search))
+            if (search != null)
             {
-                Product = this.productRepository.SearchProducts(search).ToList();
+                pageIndex = 1;
             }
             else
             {
-                Product = this.productRepository.GetProducts().ToList();
+                search = filter;
             }
+            Categories = this.categoryRepository.GetCategories().ToList();
+            var productsIQ = this.productRepository.GetProducts().ToList();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                productsIQ = this.productRepository.SearchProducts(search).ToList();
+            }
+            var pageSize = Configuration.GetValue("PageSize", 10);
+            Product = await PaginatedList<Product>.CreateAsync(productsIQ, pageIndex ?? 1, pageSize);
         }
     }
 }

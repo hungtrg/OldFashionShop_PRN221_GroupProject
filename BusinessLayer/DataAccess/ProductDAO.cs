@@ -48,7 +48,7 @@ namespace BusinessLayer.DataAccess
             try
             {
                 var productDB = new MyStoreManagementContext();
-                products = productDB.Products.Where(products => products.ProductName.Contains(search) || products.Title.Contains(search)).ToList();
+                products = productDB.Products.Where(products => products.ProductName.Contains(search) || products.Title.Contains(search) || products.CatId.ToString().Contains(search) || products.Discount.ToString().Contains(search) || products.Price.ToString().Contains(search)).ToList();
             }
             catch (Exception ex)
             {
