@@ -172,7 +172,7 @@
                                         <ul>
                                             <li><a asp-page="/Products/Details" asp-route-id="@item.ProductId"><i class="fa fa-eye"></i></a></li>
                                             <li><a asp-page="/Products/Details" asp-route-id="@item.ProductId"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a asp-page="/Products/Cart" asp-route-id="@item.ProductId" asp-route-quantity=1><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <img src="assets/images/men-01.jpg" alt="">

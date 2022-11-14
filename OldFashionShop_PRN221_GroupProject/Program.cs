@@ -12,6 +12,8 @@ builder.Services.AddRazorPages().AddRazorPagesOptions(opt => opt.Conventions.Add
 builder.Services.AddSingleton<IAccountRepository , AccountRepository>();
 builder.Services.AddSingleton<IProductRepository , ProductRepository>();
 builder.Services.AddSingleton<ICategoryRepository , CategoryRepository>();
+builder.Services.AddSingleton<IOrderRepository , OrderRepository>();
+builder.Services.AddSingleton<IOrderDetailRepository , OrderDetailRepository>();
 
 builder.Services.AddSession(opt =>
 {

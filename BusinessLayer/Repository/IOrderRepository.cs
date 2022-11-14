@@ -11,6 +11,7 @@ namespace BusinessLayer.Repository
     public interface IOrderRepository
     {
         IEnumerable<Order> GetOrders();
+        IEnumerable<Order> SearchOrders(string search);
         Order GetOrderById(int id);
         void AddOrder(Order order);
         void UpdateOrder(Order order);
@@ -24,6 +25,8 @@ namespace BusinessLayer.Repository
         public Order GetOrderById(int id) => OrderDAO.Instance.GetOrderByID(id);
 
         public IEnumerable<Order> GetOrders() => OrderDAO.Instance.GetOrderList();
+
+        public IEnumerable<Order> SearchOrders(string search) => OrderDAO.Instance.SearchOrders(search);
 
         public void RemoveOrder(Order order) => OrderDAO.Instance.RemoveOrder(order);
 
