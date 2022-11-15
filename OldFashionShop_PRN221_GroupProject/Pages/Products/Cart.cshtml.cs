@@ -22,6 +22,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         [BindProperty]
         public string Note { get; set; }
 
+        [BindProperty]
+        public List<string> Thumb { get; set; } = default;
+
         public int FinalAmount { get; set; }
         public CartModel(IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
         {
@@ -37,7 +40,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                 foreach (var item in Cart)
                 {
                     var product = _productRepository.GetProductById((int) item.ProductId);
-
+                    var thumb = new List<string>();
+                    thumb.Add(product.Thumb);
+                    Thumb = thumb;
                     FinalAmount += (int) product.Price * (int) item.Quantity;
                 }
             }
@@ -45,6 +50,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         public IActionResult OnGetBuy(int id, int quantity)
         {
             var product = _productRepository.GetProductById(id);
+            var thumb = new List<string>();
+            thumb.Add(product.Thumb);
+            Thumb = thumb;
             var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
             if (cart == null)
             {
@@ -121,7 +129,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             var accountId = HttpContext.Session.GetString("ACCOUNT_ID");
             if (accountId == null)
             {
-                return RedirectToPage("../Login");
+                return RedirectToPage("../LoginPage");
             }
             Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
             //var accountId = int.Parse(HttpContext.Session.GetString("ACCOUNT_ID"));
@@ -131,7 +139,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                 OrderDate = DateTime.Now,
                 OrderDetails = Cart,
                 Deleted = false,
-                AccountId = 2,
+                AccountId = int.Parse(accountId),
                 Note = "",
             };
             try

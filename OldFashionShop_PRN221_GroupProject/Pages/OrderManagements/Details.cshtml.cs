@@ -6,37 +6,30 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
+using BusinessLayer.Repository;
 
 namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
 {
     public class DetailsModel : PageModel
     {
-        private readonly DataLayer.Models.MyStoreManagementContext _context;
+        private readonly IOrderRepository orderRepository;
 
-        public DetailsModel(DataLayer.Models.MyStoreManagementContext context)
+        public DetailsModel(IOrderRepository orderRepository)
         {
-            _context = context;
+            this.orderRepository = orderRepository;
         }
+        [BindProperty]
+        public string quantity { get; set; }
 
-      public Order Order { get; set; }
+        public Order Order { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null || _context.Orders == null)
-            {
-                return NotFound();
-            }
+            var order = this.orderRepository.GetOrderById(id);
+            Order = order;
 
-            var order = await _context.Orders.FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Order = order;
-            }
             return Page();
         }
+
     }
 }
