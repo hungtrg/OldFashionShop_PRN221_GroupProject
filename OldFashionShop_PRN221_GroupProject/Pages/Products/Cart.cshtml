@@ -48,7 +48,7 @@
                                     <td data-th="Product">
                                         <div class="row">
                                             <div class="col-md-3 text-left">
-                                                <img src="https://via.placeholder.com/250x250/5fa9f8/ffffff" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                                <img src="@Model.Thumb[0]" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                                             </div>
                                             <div class="col-md-9 text-left">
                                                 <h4>@item.ProductName</h4>
@@ -131,7 +131,7 @@
                 <form method="post" asp-page-handler="CheckOut" class="col-sm-6 order-md-2 text-right" id="checkout_form">
                     <input type="hidden" asp-for="Cart" />
                     <div>
-                        <a href="#" class="btn btn-dark mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                        <a href="#" class="btn btn-dark mb-4 btn-lg pl-5 pr-5">Order</a>
                     </div>
                 </form>
             }

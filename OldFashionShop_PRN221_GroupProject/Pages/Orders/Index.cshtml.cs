@@ -14,18 +14,28 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Orders
     {
         private readonly IOrderRepository orderRepository;
 
+        public string search { get; set; }
+
         public IndexModel(IOrderRepository orderRepository)
         {
             this.orderRepository = orderRepository;
         }
 
-        public IList<Order> Order { get;set; } = default!;
+        public IList<Order> Order { get; set; } = default;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string search)
         {
             //if (_context.Orders != null)
             //{
             //}
+            if (!string.IsNullOrEmpty(search))
+            {
+                Order = this.orderRepository.SearchOrders(search).ToList();
+            }
+            else
+            {
+                Order = this.orderRepository.GetOrders().ToList();
+            }
         }
     }
 }

@@ -56,13 +56,13 @@
 <div class="main-banner" id="top">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-            <button asp-page="Create" class="btn btn-outline-dark text-decoration-none">
+            @*<button asp-page="Create" class="btn btn-outline-dark text-decoration-none">
                 Create New
-            </button>
+            </button>*@
             <form method="get" id="search_form">
 
                 <div class="md-form active-cyan-2 mb-3 d-flex align-items-center justify-content-between">
-                    <input class="form-control search" type="text" placeholder="Search name of item" aria-label="Search" asp-for="search">
+                    <input class="form-control search" type="text" placeholder="Search" aria-label="Search" asp-for="search">
                     <a href="javascript:{}" onclick="document.getElementById('search_form').submit();" class="search-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-icon" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> </svg>
                         <a />
@@ -111,10 +111,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.AccountId)
                             </td>
-                            <td style="max-width:100% !important">
+                            <td style="max-width:50% !important">
                                 <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
-                                <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
-                                <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
+                                <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
                             </td>
                         </tr>
                     }
