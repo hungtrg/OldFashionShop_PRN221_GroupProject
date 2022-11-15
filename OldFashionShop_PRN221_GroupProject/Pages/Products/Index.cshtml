@@ -120,7 +120,7 @@
                                         <span>@item.CatName</span>
                                     </div>
                                 }
-                                <input type="text" value="" id="cat_checked" />
+                                <input type="hidden" value="" id="cat_checked" asp-for="filter"/>
                             </div>
                         </div>
 
@@ -222,10 +222,10 @@
             $("#collapsediv1 input[type=checkbox]").each(function () {
                 if ($(this).is(":checked")) {
                     //message += $(this).parent().next().find("span").html() + "\n";
-                    message += $(this).parent().next().find("label").html() + " ";
+                    message +=  $(this).parent().next().find("label").html() + " " ;
                 }
             });
-            document.getElementById("cat_checked").value = message;
+            document.getElementById("cat_checked").value = message.trim();
             document.getElementById("filter_form").submit();
         });
     });
