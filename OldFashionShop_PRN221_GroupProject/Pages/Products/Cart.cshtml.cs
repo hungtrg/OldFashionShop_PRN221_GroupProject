@@ -112,9 +112,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             {
                 foreach (var item in Cart)
                 {
-                    var products = _productRepository.GetProductById((int) item.ProductId);
+                    var products = _productRepository.GetProductById((int)item.ProductId);
 
-                    FinalAmount += (int) products.Price * (int) item.Quantity;
+                    FinalAmount += (int)products.Price * (int)item.Quantity;
                 }
             }
             return Page();
@@ -186,6 +186,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
             Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+            //return RedirectToPage("Cart");
             return Page();
         }
 
