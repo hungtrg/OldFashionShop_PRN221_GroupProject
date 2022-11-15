@@ -29,8 +29,8 @@
                     <div class="form-group">
                         <label asp-for="Order.Deleted" class="control-label"></label>
                         <select asp-for="Order.Deleted" class="form-control">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
                         </select>
                         <span asp-validation-for="Order.Deleted" class="text-danger"></span>
                     </div>
