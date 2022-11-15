@@ -23,9 +23,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Orders
 
         public async Task OnGetAsync()
         {
-            if (_context.Orders != null)
-            {
-            }
+            //if (_context.Orders != null)
+            //{
+            //}
         }
     }
 }
