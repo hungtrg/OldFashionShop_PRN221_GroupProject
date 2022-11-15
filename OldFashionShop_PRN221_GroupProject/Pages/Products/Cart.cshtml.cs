@@ -22,9 +22,6 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         [BindProperty]
         public string Note { get; set; }
 
-        [BindProperty]
-        public List<string> Thumb { get; set; } = default;
-
         public int FinalAmount { get; set; }
         public CartModel(IProductRepository productRepository, IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
         {
@@ -40,9 +37,6 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                 foreach (var item in Cart)
                 {
                     var product = _productRepository.GetProductById((int) item.ProductId);
-                    var thumb = new List<string>();
-                    thumb.Add(product.Thumb);
-                    Thumb = thumb;
                     FinalAmount += (int) product.Price * (int) item.Quantity;
                 }
             }
@@ -50,10 +44,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         public IActionResult OnGetBuy(int id, int quantity)
         {
             var product = _productRepository.GetProductById(id);
-            var thumb = new List<string>();
-            thumb.Add(product.Thumb);
-            Thumb = thumb;
+
             var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+
             if (cart == null)
             {
                 cart = new List<OrderDetail>();
@@ -62,9 +55,11 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                     //Product = product,
                     ProductName = product.ProductName,
                     Quantity = quantity,
+                    Thumb = product.Thumb,
                     Total = product.Price * quantity,
                     ProductId = product.ProductId,
                 });
+
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             else
@@ -77,6 +72,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                         //Product = product,
                         ProductName = product.ProductName,
                         Quantity = quantity,
+                        Thumb = product.Thumb,
                         Total = product.Price * quantity,
                         ProductId = product.ProductId,
                     });
