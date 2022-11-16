@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
 using BusinessLayer.Repository;
+using Microsoft.Identity.Client;
+using BusinessLayer.DataAccess;
 
-namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
+namespace OldFashionShop_PRN221_GroupProject.Pages.Orders
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +21,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
             this.orderDetailRepository = orderDetailRepository;
         }
 
-        public IList<OrderDetail> OrderDetail { get; set; } = default!;
+        public IList<OrderDetail> OrderDetail { get;set; } = default!;
 
 
         public async Task OnGetAsync(int? id)
