@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
+using BusinessLayer.Repository;
 
 namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
 {
     public class EditModel : PageModel
     {
-        private readonly DataLayer.Models.MyStoreManagementContext _context;
+        private readonly IOrderRepository orderRepository;
 
-        public EditModel(DataLayer.Models.MyStoreManagementContext context)
+        public EditModel(IOrderRepository orderRepository)
         {
-            _context = context;
+            this.orderRepository = orderRepository;
         }
 
         [BindProperty]
@@ -24,18 +25,17 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Orders == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var order =  await _context.Orders.FirstOrDefaultAsync(m => m.OrderId == id);
+            var order = this.orderRepository.GetOrderById((int)id);
             if (order == null)
             {
                 return NotFound();
             }
             Order = order;
-           ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId");
             return Page();
         }
 
@@ -48,22 +48,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
                 return Page();
             }
 
-            _context.Attach(Order).State = EntityState.Modified;
-
-            try
+            if (OrderExists(Order.OrderId))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(Order.OrderId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                this.orderRepository.UpdateOrder(Order);
             }
 
             return RedirectToPage("./Index");
@@ -71,7 +58,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
 
         private bool OrderExists(int id)
         {
-          return _context.Orders.Any(e => e.OrderId == id);
+            return this.orderRepository.GetOrders().Any(o => o.OrderId == id);
         }
     }
 }

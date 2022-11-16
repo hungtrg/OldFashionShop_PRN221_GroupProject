@@ -14,21 +14,25 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         {
             this.productRepository = productRepository;
         }
-
+        [FromForm]
         [BindProperty]
         public int Quantity { get; set; } = 1;
-
+        [BindProperty]
         public int Id { get; set; }
         public Product Product { get; set; }
         public Item Item { get; set; }
-        public void OnGet(int id)
+        public void OnGet(int id, int quantity)
         {
             var product = this.productRepository.GetProductById(id);
             Product = product;
             Id = id;
+            if (quantity != 0)
+            {
+                Quantity = quantity;
+            }
         }
 
-        public async Task<IActionResult> OnPostAsync(int id, int quantity)
+        public IActionResult PostAsync(int id, int quantity)
         {
             var product = this.productRepository.GetProductById(id);
             Id = id;
@@ -42,6 +46,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             }
             Item = item;
             return Page();
+
         }
     }
 }

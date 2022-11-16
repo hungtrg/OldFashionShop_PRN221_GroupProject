@@ -1,40 +1,156 @@
 ﻿@page
 @model OldFashionShop_PRN221_GroupProject.Pages.Products.CartModel
-@{
-    
+@if (ViewBag.ErrorMessage != null)
+{
+    <div role="alert">
+        @ViewBag.ErrorMessage
+    </div>
 }
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Cart</title>
-</head>
-<body>
-    <h3>Cart Info</h3>
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-        </tr>
-        <tr>Final Amount</tr>
-        @foreach (var item in Model.Cart)
-        {
-            var finalAmount = 0;
-            finalAmount = finalAmount + (int) item.Total;
-            <tr>
-                <td>@item.Product.ProductName</td>
-                <td>@item.Product.Price</td>
-                <td>@item.Quantity</td>
-                <td>@item.Total</td>
-            </tr>
-            <tr>
-                
-                <td>@finalAmount</td>
-            </tr>
+
+<style>
+    .back_btn {
+        color: black;
+        opacity: 0.8;
+    }
+
+        .back_btn:hover {
+            color: black;
+            opacity: 1;
         }
-    </table>
-    <br />
-    <a asp-page="Index">Continute Shopping</a>
-</body>
-</html>
+
+</style>
+
+<div class="main-banner" id="top">
+    <div class="container">
+        <div class="row w-100">
+            <div class="col-lg-12 col-md-12 col-12">
+                <h3 class="display-5 mb-4 text-center">Shopping Cart</h3>
+                @* <p class="mb-5 text-center">
+                <i class="text-info font-weight-bold">3</i> items in your cart
+                </p>*@
+                <table id="shoppingCart" class="table table-condensed table-responsive">
+                    <thead>
+                        <tr>
+                            <th style="width:60%">Product</th>
+                            <th style="width:12%">Price</th>
+                            <th style="width:10%">Quantity</th>
+                            <th style="width:16%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Cart != null || Model.Cart?.Count < 1)
+                        {
+                            <form method="post">
+
+                                @foreach (var item in Model.Cart)
+                                {
+
+                                <tr>
+                                    <td data-th="Product">
+                                        <div class="row">
+                                            <div class="col-md-3 text-left">
+                                                <img src="@item.Thumb" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                            </div>
+                                            <div class="col-md-9 text-left">
+                                                <h4>@item.ProductName</h4>
+                                                    @*<p class="font-weight-light">Brand &amp; Name</p>*@
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-th="Price">@item.Total</td>
+                                    <td data-th="Quantity">
+                                        <input type="number" class="form-control text-center quantity_input" value="@item.Quantity" asp-for="Quantity">
+                                    </td>
+
+                                    <td class="actions" data-th="">
+                                        <div class="text-right d-flex justify-content-end">
+
+                                                @*<input type="hidden" asp-for="Quantity" value="@item.Quantity" />*@
+                                                @*<input type="hidden" asp-for="Quantity" value="" class="quantity_hidden" />*@
+
+                                            <input type="hidden" asp-for="Id" value="@item.ProductId" />
+                                            <button class="btn btn-white border-secondary bg-white btn-md mb-2 mr-2" name="Edit" asp-page-handler="Edit">
+                                                <i class="fas fa-sync"></i>
+                                            </button>
+
+
+                                            <button class="btn btn-white border-secondary bg-white btn-md mb-2" name="Delete" asp-page-handler="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                }
+                            </form>
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-md-3 text-left">
+                                            <img src="" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                                        </div>
+                                        <div class="col-md-9 text-left">
+
+                                            <h4></h4>
+                                            @*<p class="font-weight-light">Brand &amp; Name</p>*@
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Price"></td>
+                                <td data-th="Quantity">
+                                </td>
+
+                                <td class="actions" data-th="">
+                                    <div class="text-right d-flex justify-content-end">
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="float-right text-right">
+                    <h4>Subtotal:</h4>
+                    <h1 id="final_amount">$@Model.FinalAmount</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 d-flex align-items-center" id="hidden">
+            @if (Model.Cart != null || Model.Cart?.Count < 1)
+            {
+                <form method="post" asp-page-handler="CheckOut" class="col-sm-6 order-md-2 text-right" id="checkout_form">
+                    <input type="hidden" asp-for="Cart" />
+                    <div>
+                        <a href="javascript:{}" onclick="document.getElementById('checkout_form').submit();" class="btn btn-dark mb-4 btn-lg pl-5 pr-5">Checkout</a>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <form method="post" asp-page-handler="CheckOut" class="col-sm-6 order-md-2 text-right" id="checkout_form">
+                    <input type="hidden" asp-for="Cart" />
+                    <div>
+                        <a href="#" class="btn btn-dark mb-4 btn-lg pl-5 pr-5">Order</a>
+                    </div>
+                </form>
+            }
+
+            <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                <a asp-page="Index" class="back_btn">
+                    <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    if (document.getElementById("final_amount").textContent == "$0") {
+        document.getElementById("hidden").firstElementChild.textContent = "";
+    }
+</script>

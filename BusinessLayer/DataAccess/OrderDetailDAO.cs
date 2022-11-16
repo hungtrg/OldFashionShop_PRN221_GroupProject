@@ -62,11 +62,11 @@ namespace BusinessLayer.DataAccess
         {
             try
             {
-                OrderDetail p = GetOrderDetailByID(orderDetail.OrderDetailId);
+                OrderDetail p = GetOrderDetailByID((int) orderDetail.OrderDetailId);
                 if (p == null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.OrderDetails.Add(p);
+                    myStoreDB.OrderDetails.Add(orderDetail);
                     myStoreDB.SaveChanges();
                 }
                 else
@@ -84,7 +84,7 @@ namespace BusinessLayer.DataAccess
         {
             try
             {
-                OrderDetail p = GetOrderDetailByID(orderDetail.OrderDetailId);
+                OrderDetail p = GetOrderDetailByID((int) orderDetail.OrderDetailId);
                 if (p != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
@@ -106,7 +106,7 @@ namespace BusinessLayer.DataAccess
         {
             try
             {
-                OrderDetail p = GetOrderDetailByID(orderDetail.OrderDetailId);
+                OrderDetail p = GetOrderDetailByID((int) orderDetail.OrderDetailId);
                 if (p != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();

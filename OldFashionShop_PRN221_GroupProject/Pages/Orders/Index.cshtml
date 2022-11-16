@@ -1,0 +1,53 @@
+﻿@page
+@model OldFashionShop_PRN221_GroupProject.Pages.Orders.IndexModel
+
+<div class="main-banner" id="top">
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order[0].OrderDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order[0].Deleted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order[0].Note)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order[0].Status)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Order)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Deleted)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
+                            <form method="post">
+                                <button asp-route-id="@item.OrderId">Cance</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

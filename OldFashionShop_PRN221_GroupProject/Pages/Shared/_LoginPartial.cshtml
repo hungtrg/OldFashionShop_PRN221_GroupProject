@@ -3,17 +3,14 @@
     <li class="submenu">
         <a href="javascript:;">Features</a>
         <ul>
-            @if (Context.Session.GetString("ROLE") == "Manager")
+                <li><a asp-page="/OrderManagements/Index">Order Management</a></li>
+            @if (Context.Session.GetString("ROLE") == "Manager" || Context.Session.GetString("ROLE") == "Admin")
             {
                 <li><a asp-page="/ProductManagements/Index">Product Management</a></li>
             }
-            @if (Context.Session.GetString("ROLE") == "Manager")
-            {
-                <li><a asp-page="/AccountManagements/Index">Account Management</a></li>
-            }
             @if (Context.Session.GetString("ROLE") == "Admin")
             {
-                 <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 3</a></li>
+                <li><a asp-page="/AccountManagements/Index">Account Management</a></li>
             }
         </ul>
     </li>
@@ -22,12 +19,11 @@
     @if (Context.Session.GetString("ROLE") != null)
     {
         string email = Context.Session.GetString("EMAIL");
-       
-        <a href="javascript:;">Welcome Username</a>
+
+        <a href="javascript:;">Welcome @Context.Session.GetString("FULLNAME")</a>
         <ul>
             <li><a asp-page="/Profile/MyProfile" asp-route-email="@email">My Profile</a></li>
-            <li><a href="#">View Cart</a></li>
-            <li><a href="#">My Orders</a></li>
+            <li><a asp-page="/Orders/Index">My Orders</a></li>
             <li><a asp-page="/LogoutPage">Logout</a></li>
         </ul>
     }

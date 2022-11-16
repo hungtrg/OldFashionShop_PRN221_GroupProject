@@ -34,6 +34,10 @@ public partial class OrderDetail
     [Required(ErrorMessage = "Discount is required!")]
     [Range(1, int.MaxValue, ErrorMessage = "Discount should be positive!")]
     [Display(Name = "Discount")]
+    public string? ProductName { get; set; }
+    public string? Thumb { get; set; }
+    public int? OrderNumber { get; set; }
+    public int? Quantity { get; set; }
     public int? Discount { get; set; }
 
     [Required(ErrorMessage = "Total is required!")]

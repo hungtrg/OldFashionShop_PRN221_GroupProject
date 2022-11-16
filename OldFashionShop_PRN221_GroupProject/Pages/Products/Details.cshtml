@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="left-images">
-                    <img src="~/assets/images/single-product-01.jpg" alt="">
+                    <img src="@Model.Product.Thumb" alt="">
                     <img src="~/assets/images/single-product-02.jpg" alt="">
                 </div>
             </div>
@@ -40,28 +40,27 @@
                     <div class="quote">
                         <i class="fa fa-quote-left"></i><p>@Model.Product.Title</p>
                     </div>
-                    <form method="post" id="quanity_form">
+                    <form method="get" id="quanity_form">
                         <div class="quantity-content">
                             <div class="left-content">
                                 <h6>No. of Orders</h6>
                             </div>
                             <div class="right-content">
                                 <div class="quantity buttons_added">
-                                    <input type="submit" value="-" class="minus" id="decrease" />
-                                    <input type="number" step="1" min="1" max="" name="quantity" asp-for="Quantity" value="@Model.Quantity" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="quantity"/>
-                                    <input type="submit" value="+" class="plus" id="increase" />
-                                    <input type="hidden" asp-for="Id" value="@Model.Product.ProductId"/>
+                                    <input type="button" value="-" class="minus" id="decrease" />
+                                    <input type="number" step="1" min="1" max="" name="quantity" asp-for="Quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" id="quantity" />
+                                    <input type="button" value="+" class="plus" id="increase" />
+                                    <input type="hidden" asp-for="Id" value="@Model.Product.ProductId" id="product_id" />
                                 </div>
                             </div>
                         </div>
                     </form>
-                        <div class="total">
-                            <h4 class="total_price"></h4>
-                            <div class="main-border-button">
-                                @*<a href="javascript:{}" onclick="document.getElementById('quanity_form').submit();">Add To Cart</a></div>*@
-                                <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Id" asp-route-quantity="@Model.Quantity">Add To Cart</a>
-                            </div>
+                    <div class="total">
+                        <h4 class="total_price"></h4>
+                        <div class="main-border-button" id="add_to_cart">
+                            <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Product.ProductId" asp-route-thumb="@Model.Product.Thumb" asp-route-quantity="1">Add To Cart</a>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,13 +73,17 @@
     const decreaseBtn = document.getElementById("decrease");
     const increaseBtn = document.getElementById("increase");
     const quantityInput = document.getElementById("quantity");
+    const addToCartElement = document.getElementById("add_to_cart");
+    const productIdElement = document.getElementById("product_id");
 
     const price = priceElement.textContent.slice(1);
-    totalPriceElement.textContent = price;
+    totalPriceElement.textContent = "$" + price;
 
     decreaseBtn.onclick = () => {
         if (quantityInput.value > 1)
             quantityInput.value = +quantityInput.value - 1;
+
+        addToCartElement.innerHTML = `<a href="/Products/Cart?id=${productIdElement.value}&amp;quantity=${quantityInput.value}&amp;handler=buy" id="add_to_cart" asp-page="Cart" asp-page-handler="buy" asp-route-id="${productIdElement.value}" asp-route-quantity=${quantityInput.value}> Add To Cart </a>`;
 
         const totalPrice = price * +quantityInput.value;
         totalPriceElement.textContent = "$" + totalPrice.toString();
@@ -88,7 +91,11 @@
     increaseBtn.onclick = () => {
         quantityInput.value = +quantityInput.value + 1;
 
+        addToCartElement.innerHTML = `<a href="/Products/Cart?id=${productIdElement.value}&amp;quantity=${quantityInput.value}&amp;handler=buy" id="add_to_cart" asp-page="Cart" asp-page-handler="buy" asp-route-id="${productIdElement.value}" asp-route-quantity=${quantityInput.value}> Add To Cart </a>`;
+
         const totalPrice = price * +quantityInput.value;
         totalPriceElement.textContent = "$" + totalPrice.toString();
     };
+
+
 </script>

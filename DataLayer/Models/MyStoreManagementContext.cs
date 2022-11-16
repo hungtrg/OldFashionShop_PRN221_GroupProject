@@ -96,7 +96,8 @@ public partial class MyStoreManagementContext : DbContext
         modelBuilder.Entity<OrderDetail>(entity =>
         {
             entity.Property(e => e.OrderDetailId)
-                .ValueGeneratedNever()
+            .UseIdentityColumn()
+                //.ValueGeneratedNever()
                 .HasColumnName("OrderDetailID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");

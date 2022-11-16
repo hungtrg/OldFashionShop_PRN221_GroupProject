@@ -42,5 +42,5 @@ public partial class Order
 
     public virtual Account? Account { get; set; }
 
-    public virtual ICollection<OrderDetail> OrderDetails { get; } = new List<OrderDetail>();
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 }

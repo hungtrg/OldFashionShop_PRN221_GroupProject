@@ -11,45 +11,50 @@
 <!-- ***** Main Login Area Start ***** -->
 <div class="main-banner" id="top">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-4">
-                <form method="post">
-                    <div class="col-xl-8">
-                        <!-- Account details card-->
-                        <div class="card mb-4">
-                            <div class="card-header">Account Details</div>
-                            <div class="card-body">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="Account.AccountId" />
-                                <input asp-for="Account.Active" type="hidden" class="form-control" />
-                                <input asp-for="Account.RoleId" type="hidden" class="form-control" />
-                                <div class="form-field">
-                                    <label asp-for="Account.Email" class="control-label"></label>
-                                    <input asp-for="Account.Email" class="form-control" readonly />
-                                    <span asp-validation-for="Account.Email" class="text-danger"></span>
-                                </div>
-                                <div class="form-field">
-                                    <label asp-for="Account.Password" class="control-label"></label>
-                                    <input asp-for="Account.Password" class="form-control" />
-                                    <span asp-validation-for="Account.Password" class="text-danger"></span>
-                                </div>
-                                <div class="form-field">
-                                    <label asp-for="Account.FullName" class="control-label"></label>
-                                    <input asp-for="Account.FullName" class="form-control" />
-                                    <span asp-validation-for="Account.FullName" class="text-danger"></span>
-                                </div>
-                                <div class="form-field">
-                                    <label asp-for="Account.Phone" class="control-label"></label>
-                                    <input asp-for="Account.Phone" class="form-control" />
-                                    <span asp-validation-for="Account.Phone" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Save" class="btn btn-primary" />
-                                </div>
-                            </div>
+        <div class="col-6 mx-auto">
+            <form method="post">
+
+                <!-- Account details card-->
+                <div class="card mb-4">
+                    <div class="card-header">Account Details</div>
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Account.AccountId" />
+                        <input asp-for="Account.Active" type="hidden" class="form-control" />
+                        <input asp-for="Account.RoleId" type="hidden" class="form-control" />
+                        <div class="form-field">
+                            <label asp-for="Account.Email" class="control-label"></label>
+                            <input asp-for="Account.Email" class="form-control" readonly />
+                            <span asp-validation-for="Account.Email" class="text-danger"></span>
                         </div>
-                </form>
-            </div>
+                        <div class="form-field">
+                            <label asp-for="Account.Password" class="control-label"></label>
+                            <input asp-for="Account.Password" class="form-control" />
+                            <span asp-validation-for="Account.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-field">
+                            <label asp-for="Account.FullName" class="control-label"></label>
+                            <input asp-for="Account.FullName" class="form-control" />
+                            <span asp-validation-for="Account.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-field">
+                            <label asp-for="Account.Phone" class="control-label"></label>
+                            <input asp-for="Account.Phone" class="form-control" />
+                            <span asp-validation-for="Account.Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <div role="alert">
+                                @ViewBag.ErrorMessage
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

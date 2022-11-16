@@ -6,27 +6,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Models;
+using BusinessLayer.Repository;
 
 namespace OldFashionShop_PRN221_GroupProject.Pages.OrderManagements
 {
     public class IndexModel : PageModel
     {
-        private readonly DataLayer.Models.MyStoreManagementContext _context;
+        private readonly IOrderRepository orderRepository;
 
-        public IndexModel(DataLayer.Models.MyStoreManagementContext context)
+        public string search { get; set; }
+
+        public IndexModel(IOrderRepository orderRepository)
         {
-            _context = context;
+            this.orderRepository = orderRepository;
         }
 
-        public IList<Order> Order { get;set; } = default!;
+        public IList<Order> Order { get; set; } = default;
 
-        public async Task OnGetAsync(string quantity, int id)
+        public async Task OnGetAsync(string search)
         {
-            if (_context.Orders != null)
+            if (!string.IsNullOrEmpty(search))
             {
-                Order = await _context.Orders
-                .Include(o => o.Account).ToListAsync();
-
+                Order = this.orderRepository.SearchOrders(search).ToList();
+            }
+            else
+            {
+                Order = this.orderRepository.GetOrders().ToList();
             }
         }
     }
