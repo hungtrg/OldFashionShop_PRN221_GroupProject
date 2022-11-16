@@ -14,11 +14,7 @@
             <div class="col-md-4">
                 <form method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Account.Phone" class="control-label"></label>
-                        <input asp-for="Account.Phone" class="form-control" />
-                        <span asp-validation-for="Account.Phone" class="text-danger"></span>
-                    </div>
+                    <input type="hidden" asp-for="Account.AccountId" />
                     <div class="form-group">
                         <label asp-for="Account.Email" class="control-label"></label>
                         <input asp-for="Account.Email" class="form-control" />
@@ -29,20 +25,30 @@
                         <input asp-for="Account.Password" class="form-control" />
                         <span asp-validation-for="Account.Password" class="text-danger"></span>
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Account.Active" /> @Html.DisplayNameFor(model => model.Account.Active)
-                        </label>
-                    </div>
                     <div class="form-group">
                         <label asp-for="Account.FullName" class="control-label"></label>
                         <input asp-for="Account.FullName" class="form-control" />
                         <span asp-validation-for="Account.FullName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="Account.Phone" class="control-label"></label>
+                        <input asp-for="Account.Phone" class="form-control" />
+                        <span asp-validation-for="Account.Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="Account.RoleId" class="control-label"></label>
-                        <input asp-for="Account.RoleId" class="form-control" />
+                        <select asp-for="Account.RoleId" class="form-control">
+                            <option value="1">Admin</option>
+                            <option value="2">Manager</option>
+                            <option value="3">Staff</option>
+                            <option value="0">Customer</option>
+                        </select>
                         <span asp-validation-for="Account.RoleId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Account.Active" /> @Html.DisplayNameFor(model => model.Account.Active)
+                        </label>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />

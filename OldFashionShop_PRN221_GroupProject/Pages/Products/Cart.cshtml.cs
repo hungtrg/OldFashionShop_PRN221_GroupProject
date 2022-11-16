@@ -37,7 +37,6 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                 foreach (var item in Cart)
                 {
                     var product = _productRepository.GetProductById((int) item.ProductId);
-
                     FinalAmount += (int) product.Price * (int) item.Quantity;
                 }
             }
@@ -45,7 +44,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
         public IActionResult OnGetBuy(int id, int quantity)
         {
             var product = _productRepository.GetProductById(id);
+
             var cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+
             if (cart == null)
             {
                 cart = new List<OrderDetail>();
@@ -54,9 +55,11 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                     //Product = product,
                     ProductName = product.ProductName,
                     Quantity = quantity,
+                    Thumb = product.Thumb,
                     Total = product.Price * quantity,
                     ProductId = product.ProductId,
                 });
+
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             else
@@ -69,6 +72,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                         //Product = product,
                         ProductName = product.ProductName,
                         Quantity = quantity,
+                        Thumb = product.Thumb,
                         Total = product.Price * quantity,
                         ProductId = product.ProductId,
                     });
@@ -108,9 +112,9 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             {
                 foreach (var item in Cart)
                 {
-                    var products = _productRepository.GetProductById((int) item.ProductId);
+                    var products = _productRepository.GetProductById((int)item.ProductId);
 
-                    FinalAmount += (int) products.Price * (int) item.Quantity;
+                    FinalAmount += (int)products.Price * (int)item.Quantity;
                 }
             }
             return Page();
@@ -121,7 +125,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             var accountId = HttpContext.Session.GetString("ACCOUNT_ID");
             if (accountId == null)
             {
-                return RedirectToPage("../Login");
+                return RedirectToPage("../LoginPage");
             }
             Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
             //var accountId = int.Parse(HttpContext.Session.GetString("ACCOUNT_ID"));
@@ -131,7 +135,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
                 OrderDate = DateTime.Now,
                 OrderDetails = Cart,
                 Deleted = false,
-                AccountId = 2,
+                AccountId = int.Parse(accountId),
                 Note = "",
             };
             try
@@ -182,6 +186,7 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Products
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
             Cart = SessionHelper.GetObjectFromJson<List<OrderDetail>>(HttpContext.Session, "cart");
+            //return RedirectToPage("Cart");
             return Page();
         }
 

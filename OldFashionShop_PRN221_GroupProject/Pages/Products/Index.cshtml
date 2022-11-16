@@ -84,14 +84,15 @@
             <div class="col-lg-8">
             </div>
             <div class="col-lg-4 mb-4">
-                <div class="md-form active-cyan-2 mb-3 d-flex align-items-center justify-content-between">
-                    <input class="form-control search" type="text" placeholder="Search name of item" aria-label="Search">
-                    <a href="#" class="search-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-icon" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> </svg>
-                    </a>
-                </div>
+                <form method="get" id="search_form">
+                    <div class="md-form active-cyan-2 mb-3 d-flex align-items-center justify-content-between">
+                        <input asp-for="search" type="text" class="form-control search" placeholder="Search name of item" aria-label="Search">
+                        <a href="javascript:{}" onclick="document.getElementById('search_form').submit();" class="search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-icon" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> </svg>
+                        </a>
+                    </div>
+                </form>
             </div>
-
 
         </div>
     </div>
@@ -100,55 +101,54 @@
         <div class="row">
             <div class="col-lg-3">
                 <div>
-                    <form class="form-inline">
-                        <button type="button" class="btn btn-dark w-100">Apply filter</button>
-
+                    <form class="form-inline" method="get" id="filter_form">
+                        <button id="btnSubmit" type="submit" class="btn btn-dark w-100">Apply filter</button>
                         <div class="w-100 mt-4">
                             <div class="w-100 d-flex justify-content-between drop" data-toggle="collapse" data-target='#collapsediv1'>
                                 <span class="mb-2">Category</span>
                                 <span class="key-down">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" /> </svg>
                                 </span>
-
                             </div>
                             <div id='collapsediv1' class='collapse div1 show'>
-                                <div class="mb-1 d-flex align-items-center">
-                                    <input type="checkbox" class="mr-2" />
-                                    <span>Dan ong</span>
-                                </div>
-                                <div class="mb-1 d-flex align-items-center">
-                                    <input type="checkbox" class="mr-2" />
-                                    <span>Dan ba</span>
-                                </div>
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <div class="mb-1 d-flex align-items-center">
+                                        <input type="checkbox" class="mr-2" value="@item.CatId" />
+                                        <label style="display:none">@item.CatId</label>
+                                        <span>@item.CatName</span>
+                                    </div>
+                                }
+                                <input type="hidden" value="" id="cat_checked" asp-for="filter"/>
                             </div>
                         </div>
-
                         <hr />
+                            <a class="btn btn-light w-70 mx-5" asp-page="./Index">Back to full List</a>
 
-                        <div class="w-100 mt-2">
-                            <div class="w-100 d-flex justify-content-between drop" data-toggle="collapse" data-target='#collapsediv2'>
-                                <span class="mb-2">Price</span>
-                                <span class="key-down"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" /> </svg></span>
-                            </div>
-                            <div id='collapsediv2' class='collapse div2 show'>
-                                <div class="mb-1 d-flex align-items-center">
-                                    <input type="checkbox" class="mr-2" />
-                                    <span>Under 100$</span>
-                                </div>
-                                <div class="mb-1 d-flex align-items-center">
-                                    <input type="checkbox" class="mr-2" />
-                                    <span>101$ - 200$</span>
-                                </div>
-                                <div class="mb-1 d-flex align-items-center">
-                                    <input type="checkbox" class="mr-2" />
-                                    <span>201$ - 400$</span>
-                                </div>
-                                <div class="mb-1 d-flex align-items-center">
-                                    <input type="checkbox" class="mr-2" />
-                                    <span>Over 400$</span>
-                                </div>
-                            </div>
+                        @*<div class="w-100 mt-2">
+                        <div class="w-100 d-flex justify-content-between drop" data-toggle="collapse" data-target='#collapsediv2'>
+                        <span class="mb-2">Price</span>
+                        <span class="key-down"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" /> </svg></span>
                         </div>
+                        <div id='collapsediv2' class='collapse div2 show'>
+                        <div class="mb-1 d-flex align-items-center">
+                        <input type="checkbox" class="mr-2" />
+                        <span>Under 100$</span>
+                        </div>
+                        <div class="mb-1 d-flex align-items-center">
+                        <input type="checkbox" class="mr-2" />
+                        <span>101$ - 200$</span>
+                        </div>
+                        <div class="mb-1 d-flex align-items-center">
+                        <input type="checkbox" class="mr-2" />
+                        <span>201$ - 400$</span>
+                        </div>
+                        <div class="mb-1 d-flex align-items-center">
+                        <input type="checkbox" class="mr-2" />
+                        <span>Over 400$</span>
+                        </div>
+                        </div>
+                        </div>*@
 
                         <hr />
 
@@ -180,13 +180,6 @@
                                 <div class="down-content">
                                     <h4>@item.ProductName</h4>
                                     <span>$@item.Price</span>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -195,22 +188,13 @@
             </div>
             <div class="col-lg-12">
                 <div class="pagination">
+                    @{
+                        var prevDisabled = !Model.Product.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.Product.HasNextPage ? "disabled" : "";
+                    }
                     <ul>
-                        <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li class="active">
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">></a>
-                        </li>
+                        <a asp-page="./Index" asp-route-search="@Model.search" asp-route-filter="@Model.filter" asp-route-pageIndex="@(Model.Product.PageIndex - 1)" class="btn btn-primary @prevDisabled">Previous</a>
+                        <a asp-page="./Index" asp-route-search="@Model.search" asp-route-filter="@Model.filter" asp-route-pageIndex="@(Model.Product.PageIndex + 1)" class="btn btn-primary @nextDisabled">Next</a>
                     </ul>
                 </div>
             </div>
@@ -218,7 +202,8 @@
     </div>
 </section>
 <!-- ***** Products Area Ends ***** -->
-<script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
     //const e1 = document.getElementById("collapsediv1");
     //if (e1.classList.contains("show")) {
     //    for (let el of document.querySelectorAll('.key-up')) el.style.display = 'block';
@@ -228,4 +213,19 @@
     //    for (let el of document.querySelectorAll('.key-down')) el.style.display = 'none';
     //    for (let el of document.querySelectorAll('.key-up')) el.style.display = 'block';
     //}
+
+    $(function () {
+        $("#btnSubmit").click(function (e) {
+            e.preventDefault();
+            var message = "";
+            $("#collapsediv1 input[type=checkbox]").each(function () {
+                if ($(this).is(":checked")) {
+                    //message += $(this).parent().next().find("span").html() + "\n";
+                    message +=  $(this).parent().next().find("label").html() + " " ;
+                }
+            });
+            document.getElementById("cat_checked").value = message.trim();
+            document.getElementById("filter_form").submit();
+        });
+    });
 </script>

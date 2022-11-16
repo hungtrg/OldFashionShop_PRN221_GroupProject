@@ -50,14 +50,17 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
                     var checkRole = "";
                     switch (account.RoleId)
                     {
-                        case 0:
+                        case 1:
                             checkRole = "Admin";
                             break;
-                        case 1:
+                        case 2:
                             checkRole = "Manager";
                             break;
-                        case 2:
+                        case 3:
                             checkRole = "Staff";
+                            break;
+                        case 4:
+                            checkRole = "Customer";
                             break;
                     }
                     HttpContext.Session.SetString("ROLE", checkRole);

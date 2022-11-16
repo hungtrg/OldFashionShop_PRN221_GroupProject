@@ -58,7 +58,7 @@
                     <div class="total">
                         <h4 class="total_price"></h4>
                         <div class="main-border-button" id="add_to_cart">
-                            <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Product.ProductId" asp-route-quantity="1">Add To Cart</a>
+                            <a asp-page="Cart" asp-page-handler="buy" asp-route-id="@Model.Product.ProductId" asp-route-thumb="@Model.Product.Thumb" asp-route-quantity="1">Add To Cart</a>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
     const productIdElement = document.getElementById("product_id");
 
     const price = priceElement.textContent.slice(1);
-    totalPriceElement.textContent = price;
+    totalPriceElement.textContent = "$" + price;
 
     decreaseBtn.onclick = () => {
         if (quantityInput.value > 1)
