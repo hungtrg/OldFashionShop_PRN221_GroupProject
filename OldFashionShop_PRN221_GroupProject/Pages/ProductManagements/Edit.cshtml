@@ -11,21 +11,39 @@
             <div class="col-md-4">
                 <form method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Product.ProductId" />
+                    <div class="form-group">
+                        <label asp-for="Product.CatId" class="control-label"></label>
+                        <select asp-for="Product.CatId" class="form-control" asp-items="ViewBag.CatId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Title" class="control-label"></label>
+                        <input asp-for="Product.Title" class="form-control" />
+                        <span asp-validation-for="Product.Title" class="text-danger"></span>
+                    </div>
                     <div class="form-group">
                         <label asp-for="Product.ProductName" class="control-label"></label>
                         <input asp-for="Product.ProductName" class="form-control" />
                         <span asp-validation-for="Product.ProductName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">Image</label>
+                        <input asp-for="Product.Thumb" class="form-control" />
+                        <span asp-validation-for="Product.Thumb" class="text-danger"></span>
+                        <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Preview Image
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <img style="height: 200px ; width:200px;" src="@Model.Product.Thumb" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="Product.Description" class="control-label"></label>
                         <input asp-for="Product.Description" class="form-control" />
                         <span asp-validation-for="Product.Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Product.CatId" class="control-label"></label>
-                        <select asp-for="Product.CatId" class="form-control" asp-items="ViewBag.CatId"></select>
-                        <span asp-validation-for="Product.CatId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Product.Price" class="control-label"></label>
@@ -38,9 +56,9 @@
                         <span asp-validation-for="Product.Discount" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Product.Thumb" class="control-label"></label>
-                        <input asp-for="Product.Thumb" class="form-control" />
-                        <span asp-validation-for="Product.Thumb" class="text-danger"></span>
+                        <label asp-for="Product.UnitsInStock" class="control-label"></label>
+                        <input asp-for="Product.UnitsInStock" class="form-control" />
+                        <span asp-validation-for="Product.UnitsInStock" class="text-danger"></span>
                     </div>
                     <div class="form-group form-check">
                         <label class="form-check-label">
@@ -48,17 +66,7 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Product.Title" class="control-label"></label>
-                        <input asp-for="Product.Title" class="form-control" />
-                        <span asp-validation-for="Product.Title" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Product.UnitsInStock" class="control-label"></label>
-                        <input asp-for="Product.UnitsInStock" class="form-control" />
-                        <span asp-validation-for="Product.UnitsInStock" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="Edit" class="btn btn-primary" />
                     </div>
                 </form>
             </div>

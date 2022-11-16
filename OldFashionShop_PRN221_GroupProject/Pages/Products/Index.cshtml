@@ -103,7 +103,6 @@
                 <div>
                     <form class="form-inline" method="get" id="filter_form">
                         <button id="btnSubmit" type="submit" class="btn btn-dark w-100">Apply filter</button>
-                        <a asp-page="./Index">Back to full List</a>
                         <div class="w-100 mt-4">
                             <div class="w-100 d-flex justify-content-between drop" data-toggle="collapse" data-target='#collapsediv1'>
                                 <span class="mb-2">Category</span>
@@ -123,8 +122,8 @@
                                 <input type="hidden" value="" id="cat_checked" asp-for="filter"/>
                             </div>
                         </div>
-
                         <hr />
+                            <a class="btn btn-light w-70 mx-5" asp-page="./Index">Back to full List</a>
 
                         @*<div class="w-100 mt-2">
                         <div class="w-100 d-flex justify-content-between drop" data-toggle="collapse" data-target='#collapsediv2'>
@@ -194,8 +193,8 @@
                         var nextDisabled = !Model.Product.HasNextPage ? "disabled" : "";
                     }
                     <ul>
-                        <a asp-page="./Index" asp-route-pageIndex="@(Model.Product.PageIndex - 1)" class="btn btn-primary @prevDisabled">Previous</a>
-                        <a asp-page="./Index" asp-route-pageIndex="@(Model.Product.PageIndex + 1)" class="btn btn-primary @nextDisabled">Next</a>
+                        <a asp-page="./Index" asp-route-search="@Model.search" asp-route-filter="@Model.filter" asp-route-pageIndex="@(Model.Product.PageIndex - 1)" class="btn btn-primary @prevDisabled">Previous</a>
+                        <a asp-page="./Index" asp-route-search="@Model.search" asp-route-filter="@Model.filter" asp-route-pageIndex="@(Model.Product.PageIndex + 1)" class="btn btn-primary @nextDisabled">Next</a>
                     </ul>
                 </div>
             </div>

@@ -1,35 +1,103 @@
 ﻿@page
 @model OldFashionShop_PRN221_GroupProject.Pages.AccountManagements.IndexModel
 
+<style>
+    a, a:focus, a:active {
+        text-decoration: none;
+        color: black;
+        opacity: 0.6;
+    }
 
+        a:hover {
+            text-decoration: none;
+            color: black;
+            opacity: 1;
+        }
+    .table {
+        /*table-layout: fixed;*/
+    }
+
+        .table td, th {
+            max-width: 200px !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+    .form-control {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+    }
+
+    .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        box-shadow: 0 1px 0 0 black;
+    }
+
+    .active-cyan input.form-control[type=text] {
+        border: 0;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        box-shadow: 0 1px 0 0 black;
+    }
+
+    .search {
+        position: relative;
+    }
+
+    .search-btn {
+        position: absolute;
+        right: 15%;
+        text-decoration: none;
+        color: inherit;
+        opacity: 0.7;
+    }
+
+        .search-btn:hover {
+            text-decoration: none;
+            color: inherit;
+            opacity: 1;
+        }
+
+</style>
 <div class="main-banner" id="top">
     <div class="container-fluid">
-        <h1>Index</h1>
+        <h1>Account Management</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-dark text-decoration-none">
+                <a asp-page="./Create">Create New</a>
+            </button>
+            <form method="get" id="search_form">
 
-        <p>
-            <a asp-page="Create">Create New</a>
-        </p>
-        <form method="get">
-            <input type="text" asp-for="search" />
-            <button type="submit">Search</button>
-        </form>
-        <table class="table">
-            <thead>
+                <div class="md-form active-cyan-2 mb-3 d-flex align-items-center justify-content-between">
+                    <input class="form-control search" type="text" placeholder="Search name of item" aria-label="Search" asp-for="search">
+                    <a href="javascript:{}" onclick="document.getElementById('search_form').submit();" class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-icon" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> </svg>
+                        <a />
+                </div>
+
+            </form>
+        </div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Account[0].Phone)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Account[0].Email)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Account[0].Active)
+                        @Html.DisplayNameFor(model => model.Account[0].RoleId)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Account[0].FullName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Account[0].RoleId)
+                        @Html.DisplayNameFor(model => model.Account[0].Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Account[0].Active)
                     </th>
                     <th></th>
                 </tr>
@@ -39,19 +107,37 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Phone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Active)
+                            @{
+                                var role = "";
+                                switch (item.RoleId)
+                                {
+                                    case 1:
+                                        role = "Admin";
+                                        break;
+                                    case 2:
+                                        role = "Manager";
+                                        break;
+                                    case 3:
+                                        role = "Staff";
+                                        break;
+                                    case 4:
+                                        role = "Customer";
+                                        break;
+                                }
+                            }
+                            @role
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FullName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.RoleId)
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Active)
                         </td>
                         <td>
                             <a asp-page="./Edit" asp-route-email="@item.Email">Edit</a> |

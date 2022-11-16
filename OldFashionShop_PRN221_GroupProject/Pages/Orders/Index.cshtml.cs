@@ -58,5 +58,23 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.Orders
 
             return RedirectToPage("./Index");
         }
+
+        public IActionResult OnPostComplete(int? id)
+        {
+            updateOrder = this.orderRepository.GetOrderById((int)id);
+
+            var order = new Order
+            {
+                OrderId = updateOrder.OrderId,
+                AccountId = updateOrder.AccountId,
+                OrderDate = updateOrder.OrderDate,
+                Deleted = true,
+                Note = updateOrder.Note,
+                Status = 3
+            };
+            this.orderRepository.UpdateOrder(order);
+
+            return RedirectToPage("./Index");
+        }
     }
 }

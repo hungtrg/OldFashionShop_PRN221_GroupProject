@@ -42,7 +42,8 @@
                             <input asp-for="Account.Phone" class="form-control" />
                             <span asp-validation-for="Account.Phone" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+                        <br/>
+                        <div class="form-group text-right">
                             <input type="submit" value="Save" class="btn btn-primary" />
                         </div>
                         @if (ViewBag.ErrorMessage != null)
