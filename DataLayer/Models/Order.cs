@@ -24,7 +24,7 @@ public partial class Order
     [DateValidation(ErrorMessage ="Year-Month-Day")]
     public DateTime? OrderDate { get; set; }
 
-    [Required(ErrorMessage = "Deleted is required!")]
+    [Required(ErrorMessage = "Deleted is not required!")]
     [Display(Name = "Deleted")]
     public bool? Deleted { get; set; }
 

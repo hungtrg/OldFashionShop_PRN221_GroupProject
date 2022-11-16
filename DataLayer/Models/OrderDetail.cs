@@ -20,10 +20,22 @@ public partial class OrderDetail
     [Range(1, int.MaxValue, ErrorMessage = "Product Id should be positive!")]
     [Display(Name = "Product Id")]
     public int? ProductId { get; set; }
+
+    [Required(ErrorMessage = "Order Number is required!")]
+    [Range(1, int.MaxValue, ErrorMessage = "Order Number should be positive!")]
+    [Display(Name = "Order Number")]
+    public int? OrderNumber { get; set; }
+
+    [Required(ErrorMessage = "Quantity is required!")]
+    [Range(1, int.MaxValue, ErrorMessage = "Quantity should be positive!")]
+    [Display(Name = "Quantity")]
+    public int? Quantity { get; set; }
+
+    [Required(ErrorMessage = "Discount is required!")]
+    [Range(1, int.MaxValue, ErrorMessage = "Discount should be positive!")]
+    [Display(Name = "Discount")]
     public string? ProductName { get; set; }
     public string? Thumb { get; set; }
-    public int? OrderNumber { get; set; }
-    public int? Quantity { get; set; }
     public int? Discount { get; set; }
 
     [Required(ErrorMessage = "Total is required!")]
