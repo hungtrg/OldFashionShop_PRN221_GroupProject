@@ -10,12 +10,14 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
         private readonly IAccountRepository accountRepository;
 
         [BindProperty]
-        [Required]
+        [Required(ErrorMessage = "Email is required!")]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [BindProperty]
-        [Required]
+        [Required(ErrorMessage = "Password is required!")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "The lenght of Password is from 6 to 20 charaters")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -24,8 +26,19 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
             this.accountRepository = accountRepository;
         }
 
+        public IActionResult OnGet()
+        {
+            return Page();
+        }
+
         public IActionResult OnPost()
         {
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+
             var account = this.accountRepository.CheckLogin(Email, Password);
             if (account != null)
             {
