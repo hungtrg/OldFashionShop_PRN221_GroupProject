@@ -25,20 +25,9 @@ public partial class OrderDetail
     [StringLength(255, MinimumLength = 3, ErrorMessage = "The lenght of Product Name is from 3 to 255 charaters")]
     [Display(Name = "Product Name")]
     public string? ProductName { get; set; }
-
-    //[Required(ErrorMessage = "Order Number is required!")]
-    //[Range(1, int.MaxValue, ErrorMessage = "Order Number should be positive!")]
-    [Display(Name = "Order Number")]
+    public string? Thumb { get; set; }
     public int? OrderNumber { get; set; }
-
-    [Required(ErrorMessage = "Quantity is required!")]
-    [Range(1, int.MaxValue, ErrorMessage = "Quantity should be positive!")]
-    [Display(Name = "Quantity")]
     public int? Quantity { get; set; }
-
-    //[Required(ErrorMessage = "Discount is required!")]
-    //[Range(1, int.MaxValue, ErrorMessage = "Discount should be positive!")]
-    [Display(Name = "Discount")]
     public int? Discount { get; set; }
 
     //[Required(ErrorMessage = "Total is required!")]

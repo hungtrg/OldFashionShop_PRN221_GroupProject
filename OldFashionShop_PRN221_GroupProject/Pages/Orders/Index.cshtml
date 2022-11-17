@@ -3,64 +3,96 @@
 
 <div class="main-banner" id="top">
     <div class="container">
-        <div class="row">
-            <div class="col-5 mx-auto">
-                <p>
-                    <a asp-page="Create">Create New</a>
-                </p>
-                <table class="table">
-                    <thead>
+        <h1>My Order</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <form method="get" id="search_form">
+
+                <div class="md-form active-cyan-2 mb-3 d-flex align-items-center justify-content-between">
+                    <input class="form-control search" type="text" placeholder="Search name of item" aria-label="Search" asp-for="search">
+                    <a href="javascript:{}" onclick="document.getElementById('search_form').submit();" class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-icon" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> </svg>
+                        <a />
+                </div>
+
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].OrderDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].Deleted)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].Note)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Order[0].Status)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Order)
+                    {
                         <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Order[0].OrderDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Order[0].Deleted)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Order[0].Note)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Order[0].Status)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Order[0].Account)
-                            </th>
-                            <th></th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Deleted)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Note)
+                            </td>
+                            <td>
+                                @{
+                                    var status = "";
+                                    switch (item.Status)
+                                    {
+                                        case 0:
+                                            status = "Canceled";
+                                            break;
+                                        case 1:
+                                            status = "Waiting for confirm";
+                                            break;
+                                        case 2:
+                                            status = "On Delivery";
+                                            break;
+                                        case 3:
+                                            status = "Completed";
+                                            break;
+                                    }
+                                }
+                                @status
+                            </td>
+                            <td class="d-flex align-items-center">
+                                <a class="btn btn-outline-dark d-inline mx-2" asp-page="./Details" asp-route-id="@item.OrderId">Details</a>
+                                @if (item.Status == 1)
+                                {
+                                    <form method="post">
+                                        <input type="hidden" asp-for="id" value="@item.OrderId" />
+
+                                        <button class="btn btn-outline-danger d-inline mx-2" type="submit">Cancel</button>
+                                    </form>
+                                }
+                                @if (item.Status != 3 && item.Status != 0)
+                                {
+                                    <form method="post" asp-page-handler="Complete">
+                                        <input type="hidden" asp-for="id" value="@item.OrderId" />
+                                        <button class="btn btn-outline-success d-inline mx-2" type="submit">Complete</button>
+                                    </form>
+                                }
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Order)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.OrderDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Deleted)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Note)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AccountId)
-                                </td>
-                                <td>
-                                    <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
-                                    <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
-                                    <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<h1>Index</h1>
 
 
