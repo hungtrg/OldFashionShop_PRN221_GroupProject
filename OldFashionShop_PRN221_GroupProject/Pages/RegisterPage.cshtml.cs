@@ -42,6 +42,10 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             try
             {
                 Account account = new Account
