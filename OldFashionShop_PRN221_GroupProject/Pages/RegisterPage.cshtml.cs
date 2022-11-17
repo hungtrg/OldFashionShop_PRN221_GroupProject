@@ -20,6 +20,11 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
             this.accountRepository = accountRepository;
         }
 
+        public IActionResult OnGet()
+        {
+            return Page();
+        }
+
         [BindProperty]
         public Account Account { get; set; }
 
@@ -42,6 +47,11 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+
             try
             {
                 Account account = new Account
