@@ -66,7 +66,7 @@ namespace BusinessLayer.DataAccess
                 if (c == null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Categories.Add(c);
+                    myStoreDB.Categories.Add(category);
                     myStoreDB.SaveChanges();
                 }
                 else
@@ -88,7 +88,7 @@ namespace BusinessLayer.DataAccess
                 if (c != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Entry<Category>(c).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    myStoreDB.Entry<Category>(category).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     myStoreDB.SaveChanges();
                 }
                 else
@@ -110,7 +110,7 @@ namespace BusinessLayer.DataAccess
                 if (c != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Remove(c);
+                    myStoreDB.Remove(category);
                     myStoreDB.SaveChanges();
                 }
                 else

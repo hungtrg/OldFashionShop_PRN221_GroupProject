@@ -47,7 +47,6 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.AccountManagements
             {
                 return Page();
             }
-
             this.accountRepository.UpdateAccount(Account);
 
             return RedirectToPage("./Index");

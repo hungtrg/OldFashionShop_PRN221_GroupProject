@@ -118,7 +118,25 @@
                                 @Html.DisplayFor(modelItem => item.Deleted)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Status)
+                                @{
+                                    var status = "";
+                                    switch (item.Status)
+                                    {
+                                        case 0:
+                                            status = "Canceled";
+                                            break;
+                                        case 1:
+                                            status = "Waiting for confirm";
+                                            break;
+                                        case 2:
+                                            status = "On Delivery";
+                                            break;
+                                        case 3:
+                                            status = "Completed";
+                                            break;
+                                    }
+                                }
+                                @status
                             </td>
                             <td style="max-width:50% !important">
                                 <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |

@@ -31,10 +31,10 @@ namespace OldFashionShop_PRN221_GroupProject.Pages.AccountManagements
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             this.accountRepository.AddAccount(Account);
 

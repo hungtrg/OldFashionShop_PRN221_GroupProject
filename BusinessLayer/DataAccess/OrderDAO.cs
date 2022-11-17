@@ -127,7 +127,7 @@ namespace BusinessLayer.DataAccess
                 if (c != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Remove(c);
+                    myStoreDB.Remove(order);
                     myStoreDB.SaveChanges();
                 }
                 else

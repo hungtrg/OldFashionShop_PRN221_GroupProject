@@ -88,7 +88,7 @@ namespace BusinessLayer.DataAccess
                 if (p != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Entry<OrderDetail>(p).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    myStoreDB.Entry<OrderDetail>(orderDetail).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     myStoreDB.SaveChanges();
                 }
                 else
@@ -110,7 +110,7 @@ namespace BusinessLayer.DataAccess
                 if (p != null)
                 {
                     var myStoreDB = new MyStoreManagementContext();
-                    myStoreDB.Remove(p);
+                    myStoreDB.Remove(orderDetail);
                     myStoreDB.SaveChanges();
                 }
                 else
