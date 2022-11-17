@@ -29,8 +29,8 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
         public Account Account { get; set; }
 
         [BindProperty]
-        [StringLength(maximumLength: 20, 
-            ErrorMessage = "Password's length at least 6 character!", 
+        [StringLength(maximumLength: 20,
+            ErrorMessage = "Password's length at least 6 character!",
             MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Confirm Password is required!")]
@@ -47,13 +47,15 @@ namespace OldFashionShop_PRN221_GroupProject.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
+            if (!ModelState.IsValid)
+            {
+                var check = ModelState.ToList();
+                return Page();
+            }
 
             try
             {
+                
                 Account account = new Account
                 {
                     FullName = Account.FullName,

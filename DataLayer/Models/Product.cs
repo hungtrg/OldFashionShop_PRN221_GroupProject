@@ -6,9 +6,9 @@ namespace DataLayer.Models;
 
 public partial class Product
 {
-    [Required(ErrorMessage = "Product Id is required!")]
-    [Range(1, int.MaxValue, ErrorMessage = "Product Id should be positive!")]
-    [Display(Name = "Product Id")]
+    //[Required(ErrorMessage = "Product Id is required!")]
+    //[Range(1, int.MaxValue, ErrorMessage = "Product Id should be positive!")]
+    //[Display(Name = "Product Id")]
     public int ProductId { get; set; }
 
     [Required(ErrorMessage = "Product Name is required!")]
@@ -21,9 +21,9 @@ public partial class Product
     [Display(Name = "Description")]
     public string? Description { get; set; }
 
-    [Required(ErrorMessage = "Category Id is required!")]
-    [Range(1, int.MaxValue, ErrorMessage = "Category Id should be positive!")]
-    [Display(Name = "Category Id")]
+    //[Required(ErrorMessage = "Category Id is required!")]
+    //[Range(1, int.MaxValue, ErrorMessage = "Category Id should be positive!")]
+    //[Display(Name = "Category Id")]
     public int? CatId { get; set; }
 
     [Required(ErrorMessage = "Price is required!")]
@@ -41,8 +41,8 @@ public partial class Product
     [Url]
     public string? Thumb { get; set; }
 
-    [Required(ErrorMessage = "Actived is required!")]
-    [Display(Name = "Active")]
+    //[Required(ErrorMessage = "Actived is required!")]
+    //[Display(Name = "Active")]
     public bool Active { get; set; }
 
     [Required(ErrorMessage = "Title is required!")]
